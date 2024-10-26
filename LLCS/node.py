@@ -6,9 +6,8 @@ from constant import MODEL_CONSTANT
 from edge import Edge
 
 class Node(object):
-    def __init__(self, input_weight, output_weight=None, age=1,
-                 short_term_error=0, long_term_error=0, insertion_threshold=0,
-                 target = None):
+    def __init__(self, input_weight, output_weight=None, target=None,
+                 age=1, short_term_error=0, long_term_error=0, insertion_threshold=0, inherited_error=0):
         self.input_weight = input_weight
         self.output_weight = output_weight
         self.short_term_error = short_term_error
@@ -21,23 +20,13 @@ class Node(object):
 
         self.activate_value = 0
 
-        random_number = random.random()
-        self.target = np.array([random_number, 1 - random_number]).T
-        random_number = random.random()
-        self.output_weight = np.array([random_number, 1 - random_number])
-
         self.actual_output = None
+        self.target = target
 
-        # self.output_weight = np.array([random_number, 1 - random_number])
-        # self.width_of_gauss = 0
-        # self.target =np.array([random_number, 1 - random_number]).T
+        self.inherited_error = inherited_error
+        self.width_of_gaussian = 0
 
-        # self.age = 1
-        # self.inherited_error = 0
-
-        # self.activate_value = 0
-
-        self.quality_measure_for_insertion = random_number
+        self.quality_measure_for_insertion = 0
 
     def get_neighbor_size(self):
         return len(self.neighbors)
@@ -50,22 +39,43 @@ class Node(object):
         self.neighbors.append(edge)
 
         neighbor.neighbors.append(Edge(self))
+        print("add neighbor")
 
     def display_neighbor(self):
+        print(len(self.neighbors))
         for neighbor in self.neighbors:
             print(neighbor.get_node())
 
     def is_neighbor(self, node):
+        for neighbor in self.get_neighbors():
+            if neighbor.get_node() == node:
+                return True
+        return False
         return node in self.get_neighbors()
     
-    def delete_neighbor(self, edge):
+    def delete_neighbor_by_edge(self, edge):
         self.get_neighbors().remove(edge)
 
         neighbor = edge.get_node()
         neighbor.get_neighbors().remove(edge)
 
+    def delete_neighbor_by_node(self, node):
+        # Remove the neighbor from this node's list of neighbors
+        self.neighbors = [edge for edge in self.neighbors if edge.get_node() != node]
+
+        # Also remove this node from the neighbor's list of neighbors if bidirectional
+        node.neighbors = [edge for edge in node.neighbors if edge.get_node() != self]
+
+        print("delete neighbor by node")
+
     def display(self):
-        print(self, ": \n", self.input_weight)
+        # print(self.input_weight, "has ", self.display_neighbor())
+        print("self.input_weight", self.input_weight)
+        print("self.output_weight", self.output_weight)
+        print("self.insertion_threshold", self.insertion_threshold)
+        print("self.long_term_error", self.long_term_error)
+        print("self.inherited_error", self.inherited_error)
+        print("end display")
 
     def set_activate_value(self, value):
         self.activate_value = value
@@ -91,12 +101,16 @@ class Node(object):
         self.input_weight = self.input_weight + self.get_input_learning_rate(best_node) * (input_node.input_weight - self.input_weight)
 
     def get_width_of_gaussian(self):
+        return self.width_of_gaussian
+    
+    def update_width_of_gaussian(self):
         if (self.get_neighbor_size() == 0):
             return 0
         total_distance = 0
         for neighbor in self.get_neighbors():
             total_distance += self.get_input_distance(neighbor.get_node())
-        return total_distance / self.get_neighbor_size()
+        self.width_of_gaussian = total_distance / self.get_neighbor_size()
+        # return total_distance / self.get_neighbor_size()
     
     def get_output_learning_rate(self):
         alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.OUTPUT_ADAPTION_THRESHOLD) + self.age - 1
@@ -107,6 +121,7 @@ class Node(object):
     
     def update_quality_measure_for_insertion(self):
         self.quality_measure_for_insertion = self.long_term_error - self.insertion_threshold * (1 + MODEL_CONSTANT.INSERTION_TOLERANCE)
+        print("self.quality_measure_for_insertion ", self.quality_measure_for_insertion)
 
     def get_local_similarity_output_weight(self):
         if (self.get_neighbor_size() == 0):
@@ -116,13 +131,20 @@ class Node(object):
             total_distance += self.get_output_distance(neighbor.get_node())
         return total_distance / self.get_neighbor_size()
 
-    def update_error_counter(self):
-        self.long_term_error = math.exp(-1 / MODEL_CONSTANT.TL) * self.long_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TL)) * np.linalg.norm(self.target - self.actual_output)
-        self.short_term_error = math.exp(-1 / MODEL_CONSTANT.TS) * self.long_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TS)) * np.linalg.norm(self.target - self.actual_output)
-    
+    def update_error_counter(self, input_node):
+        print("update eror count")
+        print(np.linalg.norm(input_node.target - input_node.actual_output))
+        print(self.long_term_error)
+        print(self.short_term_error)
+        self.long_term_error = math.exp(-1 / MODEL_CONSTANT.TL) * self.long_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TL)) * np.linalg.norm(input_node.target - input_node.actual_output)
+        self.short_term_error = math.exp(-1 / MODEL_CONSTANT.TS) * self.short_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TS)) * np.linalg.norm(input_node.target - input_node.actual_output)
+        print(self.long_term_error)
+        print(self.short_term_error)
+
     def decrease_age_for_winner(self):
         self.age = math.exp(-1 / MODEL_CONSTANT.TY) * self.age
 
+    # check ot again
     def decrease_insertion_threshold_for_winner(self):
         alpha = (1 + abs(self.get_quality_measure_for_learning() - 1)) / (1 + MODEL_CONSTANT.INPUT_ADAPTION_THRESHOLD) - 1
 
@@ -141,7 +163,7 @@ class Node(object):
     def update_edge(self):
         for neighbor in self.get_neighbors():
             if (self.age > MODEL_CONSTANT.MAXIMUM_EDGE_AGE):
-                self.delete_neighbor(neighbor)
+                self.delete_neighbor_by_edge(neighbor)
             
         
             
