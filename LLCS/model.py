@@ -5,22 +5,30 @@ from graph import Graph
 from node import Node
 from constant import MODEL_CONSTANT
 
+import numpy as np
+
+def softmax(array):
+    # Subtract the maximum value from the array for numerical stability
+    exp_values = np.exp(array - np.max(array))
+    return exp_values / np.sum(exp_values)
+
 class LLCS(object):
     def __init__(self):
         self.graph = Graph()
 
     def fit(self):
-        df = pd.read_csv("./dataset/color_dataset.csv")
+        df = pd.read_csv("./New_Training_Dataset__5000_samples_.csv")
+        # df = pd.read_csv("./disease.csv")
         t_ins = 0
         for index, row in df.iterrows():
-            rgb_values = row[['Red', 'Green', 'Blue']].to_numpy().reshape(1, 3)
-            label = row['Is_Red']
+            rgb_values = row[["Age","Fever","Cough","Fatigue","Shortness_of_Breath","Test_Result"]].to_numpy().reshape(1, 6)
+            label = row['Disease_Detected']
             
             # Create the output array based on the label
             if label == 0:
-                output = np.array([[0, 1]])
-            else:
                 output = np.array([[1, 0]])
+            else:
+                output = np.array([[0, 1]])
         
             input_node = Node(rgb_values, target=output)
 
@@ -62,6 +70,38 @@ class LLCS(object):
             #     break
         # self.graph.display()
         
+    def evaluate(self):
+        count = 0
+        df = pd.read_csv("./New_Test_Dataset__1000_samples_.csv")
+        # df = pd.read_csv("./Test_Dataset.csv")
+        for index, row in df.iterrows():
+            rgb_values = row[["Age","Fever","Cough","Fatigue","Shortness_of_Breath","Test_Result"]].to_numpy().reshape(1, 6)
+            label = row['Disease_Detected']
+
+            if label == 0:
+                output = np.array([[1, 0]])
+            else:
+                output = np.array([[0, 1]])
+        
+            input_node = Node(rgb_values, target=output)
+            model.graph.activate_node(input_node=input_node)
+
+            output = model.graph.get_actual_output()
+            softmax_values = softmax(output)
+
+            if (softmax_values[1] > softmax_values[0]):
+                detect = 1
+            else:
+                detect = 0
+
+            if (detect == label):
+                count += 1
+        
+        print(count)
+
+            # print(softmax_values)
+
+
 
 
 
@@ -70,21 +110,23 @@ class LLCS(object):
 model = LLCS()
 # model.graph.display()
 model.fit()
-# print(model.graph.log)
 
+print(model.graph.log)
+
+model.evaluate()
 # for item in model.graph.graph:
 #     print(item.display_neighbor())
 
-a = Node(input_weight=np.array([[ 241,86, 63]]))
+# a = Node(input_weight=np.array([[ 255,42, 63]]))
 
-first, second = model.graph.find_best_and_second_best_node(a)
+# first, second = model.graph.find_best_and_second_best_node(a)
 
-print("winner output ", first.display())
-model.graph.activate_node(a)
+# print("winner output ", first.display())
+# model.graph.activate_node(a)
 
-output = model.graph.get_actual_output()
+# output = model.graph.get_actual_output()
 
-print(output)
+# print(output)
 
 # print(np.array([[1, 2], [3, 4], [5, 6]]))
 

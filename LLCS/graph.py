@@ -10,12 +10,12 @@ class Graph(object):
         self.graph = []
 
         np.random.seed(42)
-        input = np.random.randint(0, 256, (1, 3))
+        input = np.random.randint(0, 256, (1, 6))
         output = np.random.uniform(0, 1, (1, 2))
         random_node_1 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_1)
 
-        input = np.random.randint(0, 256, (1, 3))
+        input = np.random.randint(0, 256, (1, 6))
         output = np.random.uniform(0, 1, (1, 2))
         random_node_2 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_2)

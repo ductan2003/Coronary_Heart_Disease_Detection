@@ -90,7 +90,7 @@ class Node(object):
         return float((self.short_term_error + 1) / (self.long_term_error + 1))
     
     def get_input_learning_rate(self, best_node):
-        alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.INPUT_ADAPTION_THRESHOLD) + self.age - 1
+        alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.INPUT_ADAPTATION_THRESHOLD) + self.age - 1
         learning_rate = MODEL_CONSTANT.LEARNING_RATE_FOR_BEST_NODE if best_node else MODEL_CONSTANT.LEARNING_RATE_FOR_NEIGHBOR
 
         if alpha <= 0:
@@ -113,11 +113,11 @@ class Node(object):
         # return total_distance / self.get_neighbor_size()
     
     def get_output_learning_rate(self):
-        alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.OUTPUT_ADAPTION_THRESHOLD) + self.age - 1
+        alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.OUTPUT_ADAPTATION_THRESHOLD) + self.age - 1
 
         if (alpha < 0):
             return 0
-        return min(1, alpha) * MODEL_CONSTANT.OUTPUT_ADAPTION_LEARNING_RATE
+        return min(1, alpha) * MODEL_CONSTANT.OUTPUT_ADAPTATION_LEARNING_RATE
     
     def update_quality_measure_for_insertion(self):
         self.quality_measure_for_insertion = self.long_term_error - self.insertion_threshold * (1 + MODEL_CONSTANT.INSERTION_TOLERANCE)
@@ -146,7 +146,7 @@ class Node(object):
 
     # check ot again
     def decrease_insertion_threshold_for_winner(self):
-        alpha = (1 + abs(self.get_quality_measure_for_learning() - 1)) / (1 + MODEL_CONSTANT.INPUT_ADAPTION_THRESHOLD) - 1
+        alpha = (1 + abs(self.get_quality_measure_for_learning() - 1)) / (1 + MODEL_CONSTANT.INPUT_ADAPTATION_THRESHOLD) - 1
 
         alpha = 0 if alpha < 0 else min(1, alpha)
         self.insertion_threshold = (1 - alpha) * math.exp(-1 / MODEL_CONSTANT.TV) * self.insertion_threshold
