@@ -70,8 +70,8 @@ class Node(object):
 
     def display(self):
         # print(self.input_weight, "has ", self.display_neighbor())
-        print("self.input_weight", self.input_weight)
-        print("self.output_weight", self.output_weight)
+        # print("self.input_weight", self.input_weight)
+        # print("self.output_weight", self.output_weight)
         print("self.insertion_threshold", self.insertion_threshold)
         print("self.long_term_error", self.long_term_error)
         print("self.inherited_error", self.inherited_error)

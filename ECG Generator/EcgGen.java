@@ -64,11 +64,11 @@ public class EcgGen extends javax.swing.JFrame {
         EcgExportWindow dataExporter = EcgGen.getExportWindow(); 
         EcgCalc generator = EcgGen.getCalcOb();
         
-        String activityType = "Resting-Abnormal";
-        Integer label = 1;
-        Integer numSample = 630;
-        String destinationLogFolder = "./ECG Generator/Dataset1/Log/";
-        String destinationECGFolder = "./ECG Generator/Dataset1/ECG/";
+        String activityType = "Resting-Overlap";
+        Integer label = 0;
+        Integer numSample = 45;
+        String destinationLogFolder = "./ECG Generator/Dataset2/Log/";
+        String destinationECGFolder = "./ECG Generator/Dataset2/ECG/";
 
 
         Random random = new Random();
@@ -84,7 +84,7 @@ public class EcgGen extends javax.swing.JFrame {
             timestamp = Instant.now();
 
             // Warning: use for overlap
-            // label = random.nextInt(2);
+            label = random.nextInt(2);
 
             paramController.resetParameters();
             paramController.setRandomHrStd(activityType, random);

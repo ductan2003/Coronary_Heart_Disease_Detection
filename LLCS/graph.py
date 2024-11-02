@@ -7,15 +7,16 @@ from constant import MODEL_CONSTANT
 class Graph(object):
     def __init__(self):
         self.log = {}
+        self.log["fail"] = 0
         self.graph = []
 
         np.random.seed(42)
-        input = np.random.randint(0, 256, (1, 6))
+        input = np.random.randint(0, 2, (30, 30))
         output = np.random.uniform(0, 1, (1, 2))
         random_node_1 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_1)
 
-        input = np.random.randint(0, 256, (1, 6))
+        input = np.random.randint(0, 2, (30, 30))
         output = np.random.uniform(0, 1, (1, 2))
         random_node_2 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_2)
@@ -79,7 +80,7 @@ class Graph(object):
         return best_node, second_best_node
     
     def activate_node(self, input_node):
-        print("input_node.input_weight ", input_node.input_weight)
+        # print("input_node.input_weight ", input_node.input_weight)
         for node in self.graph:
             node.update_width_of_gaussian()
             width_of_gaussian = node.get_width_of_gaussian()
@@ -122,6 +123,8 @@ class Graph(object):
     #TODO
     def get_q_and_f_node(self):
         q = max(self.graph, key=lambda k: (k.quality_measure_for_insertion - k.age))
+        print("q.age", q.age)
+        print("q.quality_measure_for_insertion", q.quality_measure_for_insertion)
         q = q if (q.quality_measure_for_insertion - q.age) > 0 else None
         if (q != None):
             print("________FOUND Q______________")
@@ -153,6 +156,8 @@ class Graph(object):
                 print("**********************************")
                 for item in [q, f, r]:
                     if (item.long_term_error >= item.inherited_error * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE)):
+                        print("item.long_term_error", item.long_term_error)
+                        print(item.inherited_error * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                         insert_success = False
                         item.insertion_threshold += MODEL_CONSTANT.INSERTION_LEARNING_RATE * (item.long_term_error - item.insertion_threshold * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                 if (insert_success):
@@ -164,7 +169,10 @@ class Graph(object):
                     r.add_neighbor(f)
                 else:
                     print("insert fail")
-                    self.log["fail"] = 1000
+                    if self.log["fail"] != None:
+                        self.log["fail"] = self.log["fail"] + 1 
+                    else:
+                        self.log["fail"] = 0
                     for item in [q, f, r]:
                         print(item.long_term_error)
                         item.inherited_error = item.long_term_error
