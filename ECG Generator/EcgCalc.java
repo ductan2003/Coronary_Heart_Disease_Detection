@@ -581,9 +581,6 @@ public class EcgCalc {
         rrmean = (60.0/paramOb.getHrMean());//HrMean heart rate mean 
         Nrr=(int)Math.pow(2.0, Math.ceil(Math.log(paramOb.getN()*rrmean*paramOb.getSf())/Math.log(2.0))); 
 
-        System.out.println(Nrr);
-        System.out.println(rrmean);
-
         ecgLog.println("Using " + Nrr + " = 2^ "+ (int)(Math.log(1.0*Nrr)/Math.log(2.0)) + " samples for calculating RR intervals");
 
         /* create rrprocess with required spectrum */

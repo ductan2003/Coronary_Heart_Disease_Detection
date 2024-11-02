@@ -18,13 +18,13 @@ public class EcgExportWindow extends javax.swing.JDialog {
     /** Creates new form EcgExportWindow */
     public EcgExportWindow(java.awt.Frame parent, boolean modal, EcgParam parameters, EcgCalc ecgCalcOb, EcgLogWindow logOb) {
         super(parent, modal);
-        System.out.print("Call Ecg Export Window");
+        // System.out.println("Call Ecg Export Window");
 
-        initComponents();
+        // initComponents();
         paramOb = parameters;
         calcOb = ecgCalcOb;
         ecgLog = logOb;
-        initWindow();
+        // initWindow();
     }
     
     private void initWindow(){
@@ -158,6 +158,73 @@ public class EcgExportWindow extends javax.swing.JDialog {
         this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
         closeWindow();
     }//GEN-LAST:event_exportButtonActionPerformed
+
+    public void exportCsvData() {//GEN-FIRST:event_exportButtonActionPerformed
+        if(file != null) {
+            char car;
+            /* lets select the column separator */
+            if(csvRB.isSelected()){
+                /* Comma separated value file */
+                car = ',';
+                
+            } else if(tabRB.isSelected()){
+                /* Tab separated value file */
+                car = '\t';
+
+            } else {
+                /* Other separator */
+                car = txtOtherChar.getText().charAt(0);
+            }
+            //JOptionPane.showMessageDialog(this, "Separator is = '" + car + "'");
+
+            try {
+                FileWriter fw = new FileWriter(file);
+                fw.write("Time"+ car +"Voltage"+ car +"Peak\r\n");
+                for(int i= 0; i < calcOb.getEcgResultNumRows(); i++){
+                    fw.write(Double.toString(calcOb.getEcgResultTime(i)) + car + Double.toString(calcOb.getEcgResultVoltage(i)) + car + Integer.toString(calcOb.getEcgResultPeak(i)) + "\r\n");
+                }
+                fw.close();
+            } catch (IOException ioe) {
+                throw new RuntimeException(ioe);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "You have to choose a file to save firs!");
+        }
+    }//GEN-LAST:event_exportButtonActionPerformed
+
+    public void exportCsvData(String filePath) {
+        File file = new File(filePath);
+    
+        char separator = ',';
+        // /* Select the column separator based on the radio button selected */
+        // if (csvRB.isSelected()) {
+        //     // Comma-separated values
+        //     separator = ',';
+        // } else if (tabRB.isSelected()) {
+        //     // Tab-separated values
+        //     separator = '\t';
+        // } else {
+        //     // Custom separator
+        //     separator = txtOtherChar.getText().charAt(0);
+        // }
+    
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write("Time" + separator + "Voltage" + separator + "Peak\r\n");
+    
+            // Write each row of data to the CSV file
+            for (int i = 0; i < calcOb.getEcgResultNumRows(); i++) {
+                fw.write(
+                    Double.toString(calcOb.getEcgResultTime(i)) + separator +
+                    Double.toString(calcOb.getEcgResultVoltage(i)) + separator +
+                    Integer.toString(calcOb.getEcgResultPeak(i)) + "\r\n"
+                );
+            }
+            fw.close();            
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+    }
 
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         JFileChooser c = new JFileChooser();

@@ -10,6 +10,7 @@
  * Part of of this code was taken from the ECG C version 
  * @Copyright Patrick McSharry and Gari Clifford.
  */
+import java.util.Random;
 
 public class EcgParam {
     
@@ -67,6 +68,48 @@ public class EcgParam {
     public double getHrStd(){
         return hrstd;
     }
+    public void setRandomHrStd(String type, Random random){
+        double value = 0;
+        double defaultNum;
+        double range;
+        double min;
+        double max;
+        
+        switch(type) {
+            case "Resting-Normal":
+                defaultNum = 1.6475;
+                range = 0.1;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Abnormal":
+                defaultNum = 1.3693;
+                range = 0.1;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Overlap":
+                defaultNum = 1.5084;
+                range = 0.04;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            default:
+                System.out.print("Wrong type");
+                // code block
+          }
+          
+        hrstd = value;
+        allParametersValid = false;
+    }
+
+    
 
     public void setHrMean(double value){
         hrmean = value;
@@ -75,6 +118,41 @@ public class EcgParam {
     public double getHrMean(){
         return hrmean;
     }
+    public void setRandomHrMean(String type, Random random){
+        double value = 0;
+        double min;
+        double max;
+        
+        switch(type) {
+            case "Resting-Normal":
+                min = 50.00;
+                max = 56.00;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Abnormal":
+                min = 60.00;
+                max = 65.00;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Overlap":
+                min = 56.50;
+                max = 59.50;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Exercising":
+                break;
+            default:
+                System.out.print("Wrong type");
+                // code block
+          }
+          
+        hrmean = value;
+        allParametersValid = false;
+    }
+
 
     public void setLfHfRatio(double value){
         lfhfratio = value;
@@ -83,6 +161,51 @@ public class EcgParam {
     public double getLfHfRatio(){
         return lfhfratio;
     }
+    public void setRandomLfHfRatio(String type, Random random){
+        double value = 0;
+        double defaultNum;
+        double range;
+        double min;
+        double max;
+
+        
+        switch(type) {
+            case "Resting-Normal":
+                defaultNum = 0.5;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Abnormal":
+                defaultNum = 0.5;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Overlap":
+                defaultNum = 0.5;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working":
+                break;
+            case "Exercising":
+                break;
+            default:
+                System.out.print("Wrong type");
+          }
+          
+        lfhfratio = value;
+        allParametersValid = false;
+    }
+
 
     public void setSfEcg(int value){
         sfecg = value;
@@ -116,6 +239,15 @@ public class EcgParam {
     public int getSeed(){
         return seed;
     }
+    public void setRandomSeed(Random random){                
+        // Generate a random integer within a specified range
+        int min = 1;
+        int max = 42;
+        seed = random.nextInt(max - min + 1) + min; // Random int between 1 and 42
+          
+        allParametersValid = false;
+    }
+
 
     public void setANoise(double value){
         anoise = value;
@@ -124,6 +256,18 @@ public class EcgParam {
     public double getANoise(){
         return anoise;
     }
+    public void setRandomANoise(Random random){        
+        double defaultNum = 0.1;
+        double range = 0.01;
+        double min = defaultNum - range;
+        double max = defaultNum + range;
+        
+        double value = min + (max - min) * random.nextDouble();
+    
+        anoise = value;
+        allParametersValid = false;
+    }
+
 
     public void setPeriod(int value){
         period = value;
@@ -140,6 +284,52 @@ public class EcgParam {
     public double getFLo(){
         return flo;
     }
+    public void setRandomFLo(String type, Random random){
+        double value = 0;
+        double defaultNum;
+        double range;
+        double min;
+        double max;
+
+        switch(type) {
+            case "Resting-Normal":
+                defaultNum = 0.1;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Abnormal":
+                defaultNum = 0.1;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Overlap":
+                defaultNum = 0.1;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working":
+                break;
+            case "Exercising":
+                break;
+            default:
+                System.out.print("Wrong type");
+                // code block
+          }
+
+    
+        flo = value;
+        allParametersValid = false;
+    }
+
 
     public void setFHi(double value){
         fhi = value;
@@ -148,6 +338,52 @@ public class EcgParam {
     public double getFHi(){
         return fhi;
     }
+    public void setRandomFHi(String type, Random random){
+        double value = 0;
+        double defaultNum;
+        double range;
+        double min;
+        double max;
+
+        switch(type) {
+            case "Resting-Normal":
+                defaultNum = 0.25;
+                range = 0.05;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Abnormal":
+                defaultNum = 0.25;
+                range = 0.05;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Resting-Overlap":
+                defaultNum = 0.25;
+                range = 0.05;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working":
+                break;
+            case "Exercising":
+                break;
+            default:
+                System.out.print("Wrong type");
+                // code block
+          }
+
+    
+        fhi = value;
+        allParametersValid = false;
+    }
+
 
     public void setFLoStd(double value){
         flostd = value;
@@ -180,6 +416,15 @@ public class EcgParam {
     public double getA(int index){
         return a[index];
     }
+    public void setRandomAForR(Random random) {                
+        // Generate a random integer within a specified range
+        int min = 27;
+        int max = 44;
+        seed = random.nextInt(max - min + 1) + min; // Random int between 1 and 42
+        
+        setA(2, seed);
+    }
+
 
     public void setB(int index, double value){
         b[index] = value;
@@ -188,6 +433,15 @@ public class EcgParam {
     public double getB(int index){
         return b[index];
     }
+    public void setRandomBForR(Random random) {                
+        // Generate a random integer within a specified range
+        double min = 0.1 - 0.02;
+        double max = 0.1 + 0.02;
+        double value = min + (max - min) * random.nextDouble();
+        
+        setA(2, value);
+    }
+
 
     public void setEcgAnimateInterval(long value){
         ecgAnimateInterval = value;

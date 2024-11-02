@@ -100,13 +100,13 @@ public class EcgPlotWindow extends JInternalFrame implements AdjustmentListener 
 
     /** Creates new form plotWindow */
     public EcgPlotWindow(EcgParam parameters, EcgLogWindow logOb, EcgApplication application) {
-        System.out.print("Call Ecg Plot Window");
+        System.out.println("Call Ecg Plot Window");
         initComponents();
         paramOb = parameters;
         calcOb = new EcgCalc(paramOb, logOb);
         ecgLog = logOb;
         mainApp = application;
-        initWindow();
+        // initWindow();
     }
     
     private void initWindow(){
@@ -374,7 +374,7 @@ public class EcgPlotWindow extends JInternalFrame implements AdjustmentListener 
 
     private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
         EcgExportWindow exportWin = new EcgExportWindow(null, true, paramOb, calcOb, ecgLog);
-        exportWin.show();
+        // exportWin.show();
     }//GEN-LAST:event_exportButtonActionPerformed
 
     private void animateStopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_animateStopButtonActionPerformed
@@ -510,7 +510,82 @@ public class EcgPlotWindow extends JInternalFrame implements AdjustmentListener 
 
         this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_generateButtonActionPerformed
-    
+
+    public void newGenerateButtonActionPerformed() {//GEN-FIRST:event_generateButtonActionPerformed
+        // this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
+
+        /*
+         * Clear Status text.
+         */
+        ecgLog.println("************************************************************");
+        ecgLog.println("ECGSYN:\nA program for generating a realistic synthetic ECG\n"); 
+        ecgLog.println("Copyright (c) 2003 by Patrick McSharry & Gari Clifford.");
+        ecgLog.println("All rights reserved.");
+        ecgLog.println("See IEEE Transactions On Biomedical Engineering, 50(3),\n289-294, March 2003.\n");
+        ecgLog.println("Contact:\nP. McSharry (patrick@mcsharry.net)\nG. Clifford (gari@mit.edu)");
+        ecgLog.println("************************************************************\n");
+        ecgLog.println("ECG process started.\n");       
+        ecgLog.println("Starting to clear table data and widgets values....");
+
+        /*
+         * Set the Amplitude labels
+         */
+        lblMaxAmplitude.setText(Double.toString(paramOb.getAmplitude()));
+        lblMinAmplitude.setText("-" + Double.toString(paramOb.getAmplitude()));
+
+        /*
+         * Re init the plot state.
+         * Disable repaint for the moment, until we finish the FFT function.
+         */
+        readyToPlot = false;
+        plotScrollBarValue = 0;
+        plotScrollBar.setMaximum(0);
+
+        /* Delete any data on the Data Table. */
+        clearDataTable();
+
+        ecgLog.println("Finished clearing table data and widgets values.\n");
+        /*
+         * Call the ECG funtion to calculate the data into the Data Table.
+         */
+        if(calcOb.calculateEcg()){
+
+            fillDataTable();
+            ecgLog.println("Starting to plot ECG table data....");
+            
+            /*
+            * if the # Data Table rows is less than the ecgFrame width, we do not
+            * need the scrollbar
+            */
+            int rows = tableValuesModel.getRowCount();
+            if(rows > ecgFrame.getBounds().width){
+                //JOptionPane.showMessageDialog(this, "Entro a: rows > ecgFrame.getBounds().width");
+                plotScrollBar.setMaximum(rows - ecgFrame.getBounds().width - 1); 
+            }
+
+            /*
+            * Only plot if there's data in the table.
+            */
+            if(rows > 0){
+                //JOptionPane.showMessageDialog(this, "Entro a: rows > 0");
+                readyToPlot = true;
+                ecgGenerated = true;
+                enableButtons();
+            }else{
+                ecgLog.println("No data to plot!.");
+            }
+
+            ecgFrame.repaint();
+            ecgLog.println("Finished plotting ECG table data.\n");
+
+        }
+        ecgLog.println("Finsihed ECG process.");
+        ecgLog.println("************************************************************");
+        System.out.println("End function");
+
+        // this.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_generateButtonActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane TableScrollPane;

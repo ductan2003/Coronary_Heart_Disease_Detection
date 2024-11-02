@@ -23,7 +23,7 @@ public class EcgParamWindow extends JInternalFrame {
     /** Creates new form paramWindow */
     public EcgParamWindow(EcgParam parameters, EcgLogWindow logOb) {
         initComponents();
-        this.setSize(450,410);
+        // this.setSize(450,410);
         paramOb = parameters;
         ecgLog = logOb;
         resetParameters();
@@ -78,6 +78,45 @@ public class EcgParamWindow extends JInternalFrame {
         biTable.getModel().setValueAt(new Double(paramOb.getB(3)), 3, 0);
         biTable.getModel().setValueAt(new Double(paramOb.getB(4)), 4, 0);
         
+    }
+
+    private void newInitComponents() {//GEN-BEGIN:initComponents
+        txtSf = new javax.swing.JTextField();
+        lblSf = new javax.swing.JLabel();
+        lblN = new javax.swing.JLabel();
+        txtN = new javax.swing.JTextField();
+        lblHrMean = new javax.swing.JLabel();
+        txtHrMean = new javax.swing.JTextField();
+        lblHrStd = new javax.swing.JLabel();
+        txtHrStd = new javax.swing.JTextField();
+        lblAmplitude = new javax.swing.JLabel();
+        txtAmplitude = new javax.swing.JTextField();
+        lblGeneralTitle = new javax.swing.JLabel();
+        lblANoise = new javax.swing.JLabel();
+        txtANoise = new javax.swing.JTextField();
+        lblSfEcg = new javax.swing.JLabel();
+        txtSfEcg = new javax.swing.JTextField();
+        lblSeed = new javax.swing.JLabel();
+        txtSeed = new javax.swing.JTextField();
+        lblSpectralTitle = new javax.swing.JLabel();
+        lblLfHfRatio = new javax.swing.JLabel();
+        txtLfHfRatio = new javax.swing.JTextField();
+        lblFLo = new javax.swing.JLabel();
+        txtFLo = new javax.swing.JTextField();
+        lblFHi = new javax.swing.JLabel();
+        txtFHi = new javax.swing.JTextField();
+        lblFLoStd = new javax.swing.JLabel();
+        lblFHiStd = new javax.swing.JLabel();
+        txtFHiStd = new javax.swing.JTextField();
+        txtFLoStd = new javax.swing.JTextField();
+        extremaPanel = new javax.swing.JPanel();
+        lblMorphologyTitle = new javax.swing.JLabel();
+        tiScrollPane = new javax.swing.JScrollPane();
+        tiTable = new javax.swing.JTable();
+        aiScrollPane = new javax.swing.JScrollPane();
+        aiTable = new javax.swing.JTable();
+        biScrollPane = new javax.swing.JScrollPane();
+        biTable = new javax.swing.JTable();
     }
 
     /** This method is called from within the constructor to

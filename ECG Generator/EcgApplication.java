@@ -21,12 +21,14 @@ public class EcgApplication extends javax.swing.JFrame {
     /* Main GUI-Window Objects*/
     EcgParamWindow paramWin;
     EcgLogWindow logWin;
+    EcgPlotWindow plotWin;
+    EcgCalc calcOb;
         
     /** Creates new form ecgApplication */
     public EcgApplication() {
-        initComponents();
+        // initComponents();
         initClasses();
-        initWindow();
+        // initWindow();
     }
 
     /*
@@ -36,7 +38,22 @@ public class EcgApplication extends javax.swing.JFrame {
         paramOb = new EcgParam();
         logWin = new EcgLogWindow();
         paramWin = new EcgParamWindow(paramOb, logWin);
-    }    
+        calcOb = new EcgCalc(paramOb, logWin);
+        // plotWin = new EcgPlotWindow(paramOb, logWin, this);
+    }   
+    
+    public EcgPlotWindow getPlotWin() {
+        return plotWin;
+    }
+
+    public EcgCalc getCalcOb() {
+        return calcOb;
+    }
+
+    public EcgParam getParamOb() {
+        return paramOb;
+    }
+
     private void initWindow(){
         this.setSize(980,600);
         mainLabel.setSize(this.getWidth(),  this.getHeight());
@@ -197,7 +214,10 @@ public class EcgApplication extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        new EcgApplication().show();
+        EcgApplication EcgGen = new EcgApplication();
+        // new EcgApplication().show();
+        EcgCalc calcOb = EcgGen.getCalcOb();
+        System.out.println(calcOb.calculateEcg());
         System.out.println("Hehe");
     }
     

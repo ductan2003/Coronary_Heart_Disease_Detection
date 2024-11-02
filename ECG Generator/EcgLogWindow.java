@@ -17,17 +17,23 @@ import java.io.*;
 import javax.swing.JFileChooser;
 
 public class EcgLogWindow extends javax.swing.JInternalFrame {
+    // txtStatus = new javax.swing.JTextArea();
     
     /** Creates new form ecgLogWindow */
     public EcgLogWindow() {
-        initComponents();
+        // initComponents();
+        txtStatus = new javax.swing.JTextArea();
         startLog();
-        this.setSize(740,460);
+        // this.setSize(740,460);
+    }
+
+    public void getLog() {
+        System.out.print(txtStatus);
     }
     
     public void startLog(){
         txtStatus.append("ECG Application Started on " + getCurDateTime() + "\n");
-        
+        System.out.println("Start Log");
     }
 
     public void println(String value){
@@ -127,6 +133,7 @@ public class EcgLogWindow extends javax.swing.JInternalFrame {
         int rVal = c.showSaveDialog(this);
         if(rVal == JFileChooser.APPROVE_OPTION) {
             File file = c.getSelectedFile();
+            System.out.println(file);
             try {
                 FileWriter fw = new FileWriter(file);
                 fw.write("ECG Log:\r\n");
@@ -136,6 +143,20 @@ public class EcgLogWindow extends javax.swing.JInternalFrame {
             } catch (IOException ioe) {
                 throw new RuntimeException(ioe);
             }
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    public void exportTxtLog(String filePath) {//GEN-FIRST:event_saveButtonActionPerformed
+        File file = new File(filePath);
+        
+        try {
+            FileWriter fw = new FileWriter(file);
+            fw.write("ECG Log:\r\n");
+            txtStatus.write(fw); // Writes the content of txtStatus to the file
+            fw.close();
+            clearLog();
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
