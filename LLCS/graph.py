@@ -7,6 +7,7 @@ from constant import MODEL_CONSTANT
 class Graph(object):
     def __init__(self):
         self.log = {}
+        self.capture_data = []
         self.log["fail"] = 0
         self.graph = []
 
@@ -29,6 +30,13 @@ class Graph(object):
     def get_graph_size(self):
         return len(self.graph)
     
+    def get_graph_edge(self):
+        count = 0
+        for node in self.graph:
+            count += node.get_neighbor_size()
+
+        return count / 2
+
     def add_node(self, node):
         """Adds a new node to the graph."""
         # node = Node(value)
@@ -196,7 +204,9 @@ class Graph(object):
                 min_item = item
         print(min)
         print(min_item)
-        print(min_item.get_quality_measure_for_learning())
+        print("quality for larning",min_item.get_quality_measure_for_learning())
+        print("neighbor size", min_item.get_neighbor_size())
+        print("age", min_item.age)
         if (MODEL_CONSTANT.DELETION_THRESHOLD > min and min_item.get_neighbor_size() >= 2 and min_item.age < MODEL_CONSTANT.MINIMAL_AGE and min_item.get_quality_measure_for_learning() < MODEL_CONSTANT.SUFFICIENT_STABILIZATION):
             print("delete")
             self.log["delete"] = "true"

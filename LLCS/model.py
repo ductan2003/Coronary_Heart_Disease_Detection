@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
+import json
 
 from graph import Graph
 from node import Node
@@ -66,9 +67,6 @@ class LLCS(object):
                 # if (index == self.graph.get)
                 t_ins += 1
                 index += 1
-
-                print("t_ins", t_ins)
-                print(MODEL_CONSTANT.THETA * self.graph.get_graph_size())
                 
                 if (t_ins == MODEL_CONSTANT.THETA * self.graph.get_graph_size()):
                     print("STEP", index)
@@ -86,6 +84,14 @@ class LLCS(object):
 
                 self.graph.update_node() 
                 print("*****************")
+
+                if (index % MODEL_CONSTANT.CAPTURE_TIME == 0):
+                    data = {
+                        "index": index,
+                        "num_nodes": self.graph.get_graph_size(),
+                        "edge": self.graph.get_graph_edge(),
+                    }
+                    self.graph.capture_data.append(data)
             # if (index == 500):
             #     break
         # self.graph.display()
@@ -141,23 +147,31 @@ class LLCS(object):
         
         print("Total ",count)
 
-            # print(softmax_values)
-
-
-
-
-
-
 
 model = LLCS()
 # model.graph.display()
 model.fit()
 
-
-model.evaluate()
-
 print(model.graph.log)
-print(model.graph.get_graph_size())
+
+from datetime import datetime
+
+# Current timestamp as a float
+timestamp = datetime.now().timestamp()
+
+# Convert to string
+timestamp_str = str(timestamp)
+
+with open("./Dataset3_" + timestamp_str + ".json", 'w') as json_file:
+    json.dump(model.graph.capture_data, json_file, indent=4)  # indent=4 for pretty-printing
+
+for node in model.graph.graph:
+    print(node.get_neighbor_size())
+
+# model.evaluate()
+
+# print(model.graph.capture_data)
+# print(model.graph.get_graph_size())
 # for item in model.graph.graph:
 #     print(item.display_neighbor())
 
