@@ -7,8 +7,8 @@ from constant import MODEL_CONSTANT
 class Graph(object):
     def __init__(self):
         self.log = {}
-        self.capture_data = []
         self.log["fail"] = 0
+        self.capture_data = []
         self.graph = []
 
         np.random.seed(42)
@@ -52,14 +52,10 @@ class Graph(object):
 
     def display(self):
         """Displays the graph."""
-        print("Displayed")
-        # print(self.adjacency_list)
         index = 0
         for node in self.graph:
             print(node.display_neighbor())
             index += 1
-        print(index)
-            # print(node.display_neighbor())
 
 
     def find_best_and_second_best_node(self, input_node):
@@ -70,14 +66,12 @@ class Graph(object):
         second_best_distance = float('inf')
 
         # Iterate over all nodes in the graph
-        print("size", self.get_graph_size())
         for node in self.graph:
             if node == input_node:
                 continue  # Skip comparing the node with itself
             
             # Calculate the distance between the input node and the current node
             distance = input_node.get_input_distance(node)
-            print("Distance", distance)
             
             # Update the best and second-best nodes based on the distance
             if distance <= best_distance:
@@ -92,7 +86,6 @@ class Graph(object):
         return best_node, second_best_node
     
     def activate_node(self, input_node):
-        # print("input_node.input_weight ", input_node.input_weight)
         for node in self.graph:
             node.update_width_of_gaussian()
             width_of_gaussian = node.get_width_of_gaussian()
@@ -100,7 +93,7 @@ class Graph(object):
                 node.set_activate_value(math.exp(-input_node.get_input_distance(node) / (width_of_gaussian * width_of_gaussian)))
             else:
                 node.set_activate_value(0)
-            print("___ACTIVATE DONE___: ", node.activate_value)
+            # print("___ACTIVATE DONE___: ", node.activate_value)
 
     def get_actual_output(self):
         activate_values = []
@@ -108,49 +101,44 @@ class Graph(object):
         for node in self.graph:
             activate_values.append(node.activate_value)
             output_weights.append(node.output_weight)
-        # return np.array(activate_values).dot((np.array(output_weights)))
-        print(np.array(activate_values))
-        print(output_weights)
-        print("output by model ", np.array(activate_values).dot(np.concatenate(output_weights, axis=0)))
+        # print(np.array(activate_values))
+        # print(output_weights)
+        # print("output by model ", np.array(activate_values).dot(np.concatenate(output_weights, axis=0)))
         return np.array(activate_values).dot(np.concatenate(output_weights, axis=0))
 
     def update_out_weight(self, input_node):
         input_node.actual_output = self.get_actual_output()
-        print(self.get_actual_output())
-        print(input_node.target)
-        print(input_node.target - input_node.actual_output)
-        print("_____HEHHEHE+___+++")
+        # print(self.get_actual_output())
+        # print(input_node.target)
+        # print(input_node.target - input_node.actual_output)
         for node in self.graph:
-            # print(node.target)
-            print("____")
-            print(node.output_weight)
+            # print(node.output_weight)
             node.output_weight = node.output_weight + node.get_output_learning_rate() * (input_node.target - input_node.actual_output)
-            print(node.output_weight)
+            # print(node.output_weight)
 
     def update_BI(self):
-        print("_______________")
         for node in self.graph:
             node.update_quality_measure_for_insertion()
 
     #TODO
     def get_q_and_f_node(self):
         q = max(self.graph, key=lambda k: (k.quality_measure_for_insertion - k.age))
-        print("q.age", q.age)
-        print("q.quality_measure_for_insertion", q.quality_measure_for_insertion)
+        # print("q.age", q.age)
+        # print("q.quality_measure_for_insertion", q.quality_measure_for_insertion)
         q = q if (q.quality_measure_for_insertion - q.age) > 0 else None
         if (q != None):
-            print("________FOUND Q______________")
+            # print("________FOUND Q______________")
             f_edge = max(q.get_neighbors(), key=lambda k: k.get_node().quality_measure_for_insertion)
             f = f_edge.get_node()
             f.display()
-            print("display f")
+            # print("display f")
             if (f):
                 # is_neighbor = self.check_neighbor(q,f)
                 # if (is_neighbor):
                     # self.remove_edge(q,f)
-                print("q ", q.output_weight)
-                print("f ", f.output_weight)
-                print((q.output_weight + f.output_weight) / 2)
+                # print("q ", q.output_weight)
+                # print("f ", f.output_weight)
+                # print((q.output_weight + f.output_weight) / 2)
                 r = Node(input_weight= (q.input_weight + f.input_weight) / 2, 
                         output_weight= (q.output_weight + f.output_weight) / 2, 
                         short_term_error = (q.short_term_error + f.short_term_error) / 2, 
@@ -160,33 +148,33 @@ class Graph(object):
                         )
                 # check_insertion = all(x.long_term_error >= x.insertion_threshold * (1 - x.insertion_tolerance) for x in [q,f,r])
                 insert_success = True
-                print("__________q_________", q.display())
-                print("**********************************")
-                print("__________f_________", f.display())
-                print("**********************************")
-                print("__________r_________", r.display())
-                print("**********************************")
+                # print("__________q_________", q.display())
+                # print("**********************************")
+                # print("__________f_________", f.display())
+                # print("**********************************")
+                # print("__________r_________", r.display())
+                # print("**********************************")
                 for item in [q, f, r]:
                     if (item.long_term_error >= item.inherited_error * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE)):
-                        print("item.long_term_error", item.long_term_error)
-                        print(item.inherited_error * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
+                        # print("item.long_term_error", item.long_term_error)
+                        # print(item.inherited_error * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                         insert_success = False
                         item.insertion_threshold += MODEL_CONSTANT.INSERTION_LEARNING_RATE * (item.long_term_error - item.insertion_threshold * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                 if (insert_success):
                     self.log["success"] = 1000
-                    print("insert success")
+                    # print("insert success")
                     self.add_node(r)
                     q.delete_neighbor_by_node(f)
                     r.add_neighbor(q)
                     r.add_neighbor(f)
                 else:
-                    print("insert fail")
+                    # print("insert fail")
                     if self.log["fail"] != None:
                         self.log["fail"] = self.log["fail"] + 1 
                     else:
                         self.log["fail"] = 0
                     for item in [q, f, r]:
-                        print(item.long_term_error)
+                        # print(item.long_term_error)
                         item.inherited_error = item.long_term_error
                         item.display()
 
@@ -206,14 +194,14 @@ class Graph(object):
             if (k_deletion < min):
                 min = k_deletion
                 min_item = item
-        print(min)
-        print(min_item)
-        print("quality for larning",min_item.get_quality_measure_for_learning())
-        print("neighbor size", min_item.get_neighbor_size())
-        print("age", min_item.age)
+        # print(min)
+        # print(min_item)
+        # print("quality for larning",min_item.get_quality_measure_for_learning())
+        # print("neighbor size", min_item.get_neighbor_size())
+        # print("age", min_item.age)
         if (MODEL_CONSTANT.DELETION_THRESHOLD > min and min_item.get_neighbor_size() >= 2 and min_item.age < MODEL_CONSTANT.MINIMAL_AGE and min_item.get_quality_measure_for_learning() < MODEL_CONSTANT.SUFFICIENT_STABILIZATION):
-            print("delete")
-            self.log["delete"] = "true"
+            # print("delete")
+            # self.log["delete"] = "true"
             self.remove_node(min_item)
         else:
             print("no delete")
