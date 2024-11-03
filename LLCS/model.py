@@ -17,11 +17,14 @@ def softmax(array):
 class LLCS(object):
     def __init__(self):
         self.graph = Graph()
+        self.step = 0
+        self.total_mse = 0
+        self.mse = 0
 
     def fit(self):
         # df = pd.read_csv("./New_Training_Dataset__5000_samples_.csv")
         # df = pd.read_csv("./disease.csv")
-        datasetPath = "./Dataset3_Official/NumpyData/train/"
+        datasetPath = "./Dataset3_Official/NumpyData_3031/train/"
 
         t_ins = 0
         index = 0
@@ -42,10 +45,18 @@ class LLCS(object):
                 # label = row['Disease_Detected']
                 
                 # Create the output array based on the label
-                if label == 0:
-                    output = np.array([[1, 0]])
+
+                output = np.zeros((1, 6), dtype=int)
+                if 0 <= label < 6:
+                    # Step 3: Set the specified index to 1
+                    output[0, label] = 1
                 else:
-                    output = np.array([[0, 1]])
+                    print("Invalid index. Please provide a value between 0 and 5.")
+
+                # if label == 0:
+                #     output = np.array([[1, 0]])
+                # else:
+                #     output = np.array([[0, 1]])
             
                 input_node = Node(ecg_array, target=output)
 
@@ -62,6 +73,11 @@ class LLCS(object):
 
                 self.graph.activate_node(input_node)
                 self.graph.update_out_weight(input_node)
+
+                self.step += 1
+                self.total_mse += np.mean((input_node.actual_output - input_node.target) ** 2)
+                self.mse = self.total_mse / self.step
+
 
                 # print(self.graph.get_graph_size())
                 # if (index == self.graph.get)
@@ -90,6 +106,7 @@ class LLCS(object):
                         "index": index,
                         "num_nodes": self.graph.get_graph_size(),
                         "edge": self.graph.get_graph_edge(),
+                        "mse": self.mse
                     }
                     self.graph.capture_data.append(data)
             # if (index == 500):

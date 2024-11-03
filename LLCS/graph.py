@@ -13,13 +13,17 @@ class Graph(object):
 
         np.random.seed(42)
         input = np.random.randint(0, 2, (30, 30))
-        output = np.random.uniform(0, 1, (1, 2))
-        random_node_1 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
+        new_row = np.zeros((1, 30), dtype=int)
+        updated_input_array = np.append(input, new_row, axis=0)
+        output = np.random.uniform(0, 1, (1, 6))
+        random_node_1 = Node(input_weight=updated_input_array, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_1)
 
         input = np.random.randint(0, 2, (30, 30))
-        output = np.random.uniform(0, 1, (1, 2))
-        random_node_2 = Node(input_weight=input, output_weight=output, insertion_threshold=1)
+        new_row = np.zeros((1, 30), dtype=int)
+        updated_input_array = np.append(input, new_row, axis=0)
+        output = np.random.uniform(0, 1, (1, 6))
+        random_node_2 = Node(input_weight=updated_input_array, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_2)
 
         random_node_1.add_neighbor(random_node_2)
