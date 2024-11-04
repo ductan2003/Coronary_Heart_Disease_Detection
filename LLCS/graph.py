@@ -203,8 +203,8 @@ class Graph(object):
             # print("delete")
             # self.log["delete"] = "true"
             self.remove_node(min_item)
-        else:
-            print("no delete")
+        # else:
+        #     print("no delete")
 
     def update_node(self):
         for node in self.graph:

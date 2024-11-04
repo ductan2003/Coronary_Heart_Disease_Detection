@@ -39,7 +39,6 @@ class Node(object):
         self.neighbors.append(edge)
 
         neighbor.neighbors.append(Edge(self))
-        print("add neighbor")
 
     def display_neighbor(self):
         print(len(self.neighbors))
@@ -66,7 +65,7 @@ class Node(object):
         # Also remove this node from the neighbor's list of neighbors if bidirectional
         node.neighbors = [edge for edge in node.neighbors if edge.get_node() != self]
 
-        print("delete neighbor by node")
+        # print("delete neighbor by node")
 
     def display(self):
         # print(self.input_weight, "has ", self.display_neighbor())
@@ -75,7 +74,6 @@ class Node(object):
         print("self.insertion_threshold", self.insertion_threshold)
         print("self.long_term_error", self.long_term_error)
         print("self.inherited_error", self.inherited_error)
-        print("end display")
 
     def set_activate_value(self, value):
         self.activate_value = value
@@ -121,7 +119,7 @@ class Node(object):
     
     def update_quality_measure_for_insertion(self):
         self.quality_measure_for_insertion = self.long_term_error - self.insertion_threshold * (1 + MODEL_CONSTANT.INSERTION_TOLERANCE)
-        print("self.quality_measure_for_insertion ", self.quality_measure_for_insertion)
+        # print("self.quality_measure_for_insertion ", self.quality_measure_for_insertion)
 
     def get_local_similarity_output_weight(self):
         if (self.get_neighbor_size() == 0):
@@ -132,14 +130,13 @@ class Node(object):
         return total_distance / self.get_neighbor_size()
 
     def update_error_counter(self, input_node):
-        print("update eror count")
-        print(np.linalg.norm(input_node.target - input_node.actual_output))
-        print(self.long_term_error)
-        print(self.short_term_error)
+        # print(np.linalg.norm(input_node.target - input_node.actual_output))
+        # print(self.long_term_error)
+        # print(self.short_term_error)
         self.long_term_error = math.exp(-1 / MODEL_CONSTANT.TL) * self.long_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TL)) * np.linalg.norm(input_node.target - input_node.actual_output)
         self.short_term_error = math.exp(-1 / MODEL_CONSTANT.TS) * self.short_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TS)) * np.linalg.norm(input_node.target - input_node.actual_output)
-        print(self.long_term_error)
-        print(self.short_term_error)
+        # print(self.long_term_error)
+        # print(self.short_term_error)
 
     def decrease_age_for_winner(self):
         self.age = math.exp(-1 / MODEL_CONSTANT.TY) * self.age

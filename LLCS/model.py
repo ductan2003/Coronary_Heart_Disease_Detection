@@ -22,7 +22,7 @@ class LLCS(object):
         self.mse = 0
 
     def fit(self):
-        datasetPath = "./Dataset3_Official/NumpyData_3031/train/"
+        datasetPath = "./Disease_dataset/Dataset3_Official/NumpyData_3031/train/"
 
         t_ins = 0
         index = 0
