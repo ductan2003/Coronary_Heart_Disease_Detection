@@ -30,7 +30,7 @@ class MODEL_CONSTANT:
     INSERTION_TOLERANCE = 0.01
     INSERTION_LEARNING_RATE = 0.1
 
-    TL = 9
+    TL = 10
     TS = 5
     TY = 50
     TV = 50
@@ -40,3 +40,8 @@ class MODEL_CONSTANT:
     THETA = 5
 
     CAPTURE_TIME = 5
+
+DATASET = {
+    "0410": ""
+}
+    
