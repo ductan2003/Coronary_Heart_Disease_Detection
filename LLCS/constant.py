@@ -23,14 +23,14 @@ class MODEL_CONSTANT:
     SUFFICIENT_STABILIZATION= 0.95
 
     INPUT_ADAPTATION_THRESHOLD = 0.02
-    LEARNING_RATE_FOR_BEST_NODE = 0.3
-    LEARNING_RATE_FOR_NEIGHBOR = 0.05
+    LEARNING_RATE_FOR_BEST_NODE = 0.2
+    LEARNING_RATE_FOR_NEIGHBOR = 0.02
     OUTPUT_ADAPTATION_THRESHOLD = -0.03
     OUTPUT_ADAPTATION_LEARNING_RATE = 0.2
     INSERTION_TOLERANCE = 0.01
     INSERTION_LEARNING_RATE = 0.1
 
-    TL = 10
+    TL = 15
     TS = 5
     TY = 50
     TV = 50
@@ -39,9 +39,10 @@ class MODEL_CONSTANT:
 
     THETA = 5
 
-    CAPTURE_TIME = 5
+    CAPTURE_TIME = 10
 
 DATASET = {
-    "0410": ""
+    "Overlap_testing": "./Disease_dataset/Overlap_testing/NumpyData/train/",
+    "NonOverlap_testing": "./Disease_dataset/NonOverlap_testing/NumpyData/train/"
 }
     

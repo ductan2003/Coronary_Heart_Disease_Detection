@@ -1,0 +1,1402 @@
+[
+    {
+        "step": 10,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.2921712646632172,
+        "success_rate": 0.6
+    },
+    {
+        "step": 20,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.19100243699705174,
+        "success_rate": 0.7
+    },
+    {
+        "step": 30,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.1806819558972614,
+        "success_rate": 0.6
+    },
+    {
+        "step": 40,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.1692521183155879,
+        "success_rate": 0.6
+    },
+    {
+        "step": 50,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.16538386905066726,
+        "success_rate": 0.52
+    },
+    {
+        "step": 60,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.16133780150877675,
+        "success_rate": 0.5333333333333333
+    },
+    {
+        "step": 70,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.15813892819081948,
+        "success_rate": 0.5428571428571428
+    },
+    {
+        "step": 80,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.15552219256198785,
+        "success_rate": 0.525
+    },
+    {
+        "step": 90,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.15228888879392544,
+        "success_rate": 0.5222222222222223
+    },
+    {
+        "step": 100,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.1502158100463971,
+        "success_rate": 0.52
+    },
+    {
+        "step": 110,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.14721845482623144,
+        "success_rate": 0.5363636363636364
+    },
+    {
+        "step": 120,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.14581015255119187,
+        "success_rate": 0.5333333333333333
+    },
+    {
+        "step": 130,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.14437267943928844,
+        "success_rate": 0.5307692307692308
+    },
+    {
+        "step": 140,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.14297379841166466,
+        "success_rate": 0.5285714285714286
+    },
+    {
+        "step": 150,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.1414134289753117,
+        "success_rate": 0.5466666666666666
+    },
+    {
+        "step": 160,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.14035208241009295,
+        "success_rate": 0.54375
+    },
+    {
+        "step": 170,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.13923263105142242,
+        "success_rate": 0.5470588235294118
+    },
+    {
+        "step": 180,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.1373319091492884,
+        "success_rate": 0.5611111111111111
+    },
+    {
+        "step": 190,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.13670103320448435,
+        "success_rate": 0.5578947368421052
+    },
+    {
+        "step": 200,
+        "num_nodes": 2,
+        "num_edges": 1.0,
+        "mse": 0.13589358142338268,
+        "success_rate": 0.555
+    },
+    {
+        "step": 210,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13446943358586014,
+        "success_rate": 0.5619047619047619
+    },
+    {
+        "step": 220,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13369105187075986,
+        "success_rate": 0.5636363636363636
+    },
+    {
+        "step": 230,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13307894864426564,
+        "success_rate": 0.5608695652173913
+    },
+    {
+        "step": 240,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13176116069875926,
+        "success_rate": 0.5708333333333333
+    },
+    {
+        "step": 250,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13146061252919958,
+        "success_rate": 0.572
+    },
+    {
+        "step": 260,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.13033828907326117,
+        "success_rate": 0.5769230769230769
+    },
+    {
+        "step": 270,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12911845675890302,
+        "success_rate": 0.5777777777777777
+    },
+    {
+        "step": 280,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12851500200174223,
+        "success_rate": 0.5821428571428572
+    },
+    {
+        "step": 290,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.128191368246475,
+        "success_rate": 0.5862068965517241
+    },
+    {
+        "step": 300,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12797057359458647,
+        "success_rate": 0.5866666666666667
+    },
+    {
+        "step": 310,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12630641565078277,
+        "success_rate": 0.5935483870967742
+    },
+    {
+        "step": 320,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12680410423913283,
+        "success_rate": 0.590625
+    },
+    {
+        "step": 330,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.1253545626792926,
+        "success_rate": 0.5969696969696969
+    },
+    {
+        "step": 340,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12492660244508824,
+        "success_rate": 0.5970588235294118
+    },
+    {
+        "step": 350,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12418063121454903,
+        "success_rate": 0.6
+    },
+    {
+        "step": 360,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.1219398035432579,
+        "success_rate": 0.6083333333333333
+    },
+    {
+        "step": 370,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.12202583463299886,
+        "success_rate": 0.6081081081081081
+    },
+    {
+        "step": 380,
+        "num_nodes": 3,
+        "num_edges": 3.0,
+        "mse": 0.1207509585935017,
+        "success_rate": 0.6131578947368421
+    },
+    {
+        "step": 390,
+        "num_nodes": 4,
+        "num_edges": 4.0,
+        "mse": 0.11996989896563937,
+        "success_rate": 0.6153846153846154
+    },
+    {
+        "step": 400,
+        "num_nodes": 4,
+        "num_edges": 4.0,
+        "mse": 0.12010364185878068,
+        "success_rate": 0.6175
+    },
+    {
+        "step": 410,
+        "num_nodes": 5,
+        "num_edges": 7.0,
+        "mse": 0.11965763385383968,
+        "success_rate": 0.6195121951219512
+    },
+    {
+        "step": 420,
+        "num_nodes": 5,
+        "num_edges": 7.0,
+        "mse": 0.11917654919470547,
+        "success_rate": 0.6214285714285714
+    },
+    {
+        "step": 430,
+        "num_nodes": 5,
+        "num_edges": 7.0,
+        "mse": 0.11884881804759528,
+        "success_rate": 0.6232558139534884
+    },
+    {
+        "step": 440,
+        "num_nodes": 6,
+        "num_edges": 8.0,
+        "mse": 0.11740701804832968,
+        "success_rate": 0.6295454545454545
+    },
+    {
+        "step": 450,
+        "num_nodes": 6,
+        "num_edges": 9.0,
+        "mse": 0.11757028865821735,
+        "success_rate": 0.6288888888888889
+    },
+    {
+        "step": 460,
+        "num_nodes": 6,
+        "num_edges": 9.0,
+        "mse": 0.1168008704599819,
+        "success_rate": 0.6369565217391304
+    },
+    {
+        "step": 470,
+        "num_nodes": 7,
+        "num_edges": 10.0,
+        "mse": 0.11648533613165483,
+        "success_rate": 0.6382978723404256
+    },
+    {
+        "step": 480,
+        "num_nodes": 7,
+        "num_edges": 11.0,
+        "mse": 0.11666735518967436,
+        "success_rate": 0.6395833333333333
+    },
+    {
+        "step": 490,
+        "num_nodes": 7,
+        "num_edges": 11.0,
+        "mse": 0.11611890680354006,
+        "success_rate": 0.6428571428571429
+    },
+    {
+        "step": 500,
+        "num_nodes": 8,
+        "num_edges": 13.0,
+        "mse": 0.1156579267293478,
+        "success_rate": 0.646
+    },
+    {
+        "step": 510,
+        "num_nodes": 8,
+        "num_edges": 14.0,
+        "mse": 0.11496429284626267,
+        "success_rate": 0.6509803921568628
+    },
+    {
+        "step": 520,
+        "num_nodes": 8,
+        "num_edges": 15.0,
+        "mse": 0.11420160562761673,
+        "success_rate": 0.6557692307692308
+    },
+    {
+        "step": 530,
+        "num_nodes": 8,
+        "num_edges": 15.0,
+        "mse": 0.11347388862882797,
+        "success_rate": 0.6584905660377358
+    },
+    {
+        "step": 540,
+        "num_nodes": 9,
+        "num_edges": 16.0,
+        "mse": 0.11279828793889762,
+        "success_rate": 0.6648148148148149
+    },
+    {
+        "step": 550,
+        "num_nodes": 9,
+        "num_edges": 16.0,
+        "mse": 0.11208329385198945,
+        "success_rate": 0.6709090909090909
+    },
+    {
+        "step": 560,
+        "num_nodes": 9,
+        "num_edges": 17.0,
+        "mse": 0.11158027790191696,
+        "success_rate": 0.675
+    },
+    {
+        "step": 570,
+        "num_nodes": 9,
+        "num_edges": 17.0,
+        "mse": 0.11091330644393597,
+        "success_rate": 0.6789473684210526
+    },
+    {
+        "step": 580,
+        "num_nodes": 9,
+        "num_edges": 17.0,
+        "mse": 0.11052645131810869,
+        "success_rate": 0.6793103448275862
+    },
+    {
+        "step": 590,
+        "num_nodes": 10,
+        "num_edges": 18.0,
+        "mse": 0.10991431952422717,
+        "success_rate": 0.6847457627118644
+    },
+    {
+        "step": 600,
+        "num_nodes": 10,
+        "num_edges": 18.0,
+        "mse": 0.1093331544695496,
+        "success_rate": 0.6883333333333334
+    },
+    {
+        "step": 610,
+        "num_nodes": 10,
+        "num_edges": 19.0,
+        "mse": 0.10918145136692578,
+        "success_rate": 0.6901639344262295
+    },
+    {
+        "step": 620,
+        "num_nodes": 10,
+        "num_edges": 19.0,
+        "mse": 0.10880644429030374,
+        "success_rate": 0.6919354838709677
+    },
+    {
+        "step": 630,
+        "num_nodes": 10,
+        "num_edges": 20.0,
+        "mse": 0.10861808204871805,
+        "success_rate": 0.6936507936507936
+    },
+    {
+        "step": 640,
+        "num_nodes": 11,
+        "num_edges": 21.0,
+        "mse": 0.1081112758771156,
+        "success_rate": 0.69375
+    },
+    {
+        "step": 650,
+        "num_nodes": 11,
+        "num_edges": 21.0,
+        "mse": 0.10766964982077885,
+        "success_rate": 0.696923076923077
+    },
+    {
+        "step": 660,
+        "num_nodes": 11,
+        "num_edges": 22.0,
+        "mse": 0.10751264087377364,
+        "success_rate": 0.6984848484848485
+    },
+    {
+        "step": 670,
+        "num_nodes": 11,
+        "num_edges": 22.0,
+        "mse": 0.10710601333390309,
+        "success_rate": 0.7014925373134329
+    },
+    {
+        "step": 680,
+        "num_nodes": 11,
+        "num_edges": 22.0,
+        "mse": 0.10694487740479175,
+        "success_rate": 0.7029411764705882
+    },
+    {
+        "step": 690,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.10641269421519052,
+        "success_rate": 0.7057971014492753
+    },
+    {
+        "step": 700,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.10614249982968003,
+        "success_rate": 0.7071428571428572
+    },
+    {
+        "step": 710,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.105854024841045,
+        "success_rate": 0.7098591549295775
+    },
+    {
+        "step": 720,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.10572609830145045,
+        "success_rate": 0.7083333333333334
+    },
+    {
+        "step": 730,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.10561657491438853,
+        "success_rate": 0.7082191780821918
+    },
+    {
+        "step": 740,
+        "num_nodes": 12,
+        "num_edges": 23.0,
+        "mse": 0.1054218206007028,
+        "success_rate": 0.7094594594594594
+    },
+    {
+        "step": 750,
+        "num_nodes": 13,
+        "num_edges": 24.0,
+        "mse": 0.1051856821091788,
+        "success_rate": 0.712
+    },
+    {
+        "step": 760,
+        "num_nodes": 13,
+        "num_edges": 24.0,
+        "mse": 0.10488885559261416,
+        "success_rate": 0.7118421052631579
+    },
+    {
+        "step": 770,
+        "num_nodes": 13,
+        "num_edges": 24.0,
+        "mse": 0.1045625577650113,
+        "success_rate": 0.7142857142857143
+    },
+    {
+        "step": 780,
+        "num_nodes": 13,
+        "num_edges": 24.0,
+        "mse": 0.10415528173241374,
+        "success_rate": 0.7166666666666667
+    },
+    {
+        "step": 790,
+        "num_nodes": 13,
+        "num_edges": 25.0,
+        "mse": 0.10371434269113183,
+        "success_rate": 0.7189873417721518
+    },
+    {
+        "step": 800,
+        "num_nodes": 13,
+        "num_edges": 25.0,
+        "mse": 0.10365569962817814,
+        "success_rate": 0.71875
+    },
+    {
+        "step": 810,
+        "num_nodes": 13,
+        "num_edges": 25.0,
+        "mse": 0.10359677211744107,
+        "success_rate": 0.7185185185185186
+    },
+    {
+        "step": 820,
+        "num_nodes": 14,
+        "num_edges": 26.0,
+        "mse": 0.10316978162341359,
+        "success_rate": 0.7207317073170731
+    },
+    {
+        "step": 830,
+        "num_nodes": 14,
+        "num_edges": 26.0,
+        "mse": 0.10289427078078353,
+        "success_rate": 0.7228915662650602
+    },
+    {
+        "step": 840,
+        "num_nodes": 14,
+        "num_edges": 27.0,
+        "mse": 0.1021992892598619,
+        "success_rate": 0.725
+    },
+    {
+        "step": 850,
+        "num_nodes": 14,
+        "num_edges": 27.0,
+        "mse": 0.10168448961705738,
+        "success_rate": 0.7270588235294118
+    },
+    {
+        "step": 860,
+        "num_nodes": 14,
+        "num_edges": 27.0,
+        "mse": 0.10117530264220465,
+        "success_rate": 0.7290697674418605
+    },
+    {
+        "step": 870,
+        "num_nodes": 14,
+        "num_edges": 28.0,
+        "mse": 0.10103207321897757,
+        "success_rate": 0.7310344827586207
+    },
+    {
+        "step": 880,
+        "num_nodes": 14,
+        "num_edges": 28.0,
+        "mse": 0.10047515883259746,
+        "success_rate": 0.7340909090909091
+    },
+    {
+        "step": 890,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.10028593302795481,
+        "success_rate": 0.7359550561797753
+    },
+    {
+        "step": 900,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.09991555546427659,
+        "success_rate": 0.7377777777777778
+    },
+    {
+        "step": 910,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.09931010406855711,
+        "success_rate": 0.7406593406593407
+    },
+    {
+        "step": 920,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.09907272973341207,
+        "success_rate": 0.741304347826087
+    },
+    {
+        "step": 930,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.09864845560619559,
+        "success_rate": 0.7430107526881721
+    },
+    {
+        "step": 940,
+        "num_nodes": 15,
+        "num_edges": 29.0,
+        "mse": 0.09808862109354177,
+        "success_rate": 0.7457446808510638
+    },
+    {
+        "step": 950,
+        "num_nodes": 15,
+        "num_edges": 30.0,
+        "mse": 0.09782272979143351,
+        "success_rate": 0.7463157894736843
+    },
+    {
+        "step": 960,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09767965845445284,
+        "success_rate": 0.746875
+    },
+    {
+        "step": 970,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.0974619312100584,
+        "success_rate": 0.7484536082474227
+    },
+    {
+        "step": 980,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09707544384809473,
+        "success_rate": 0.75
+    },
+    {
+        "step": 990,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09665806815359103,
+        "success_rate": 0.7515151515151515
+    },
+    {
+        "step": 1000,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09641286223480384,
+        "success_rate": 0.752
+    },
+    {
+        "step": 1010,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09650722911803326,
+        "success_rate": 0.7514851485148515
+    },
+    {
+        "step": 1020,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09615618393360406,
+        "success_rate": 0.7529411764705882
+    },
+    {
+        "step": 1030,
+        "num_nodes": 16,
+        "num_edges": 32.0,
+        "mse": 0.09592933968595105,
+        "success_rate": 0.7543689320388349
+    },
+    {
+        "step": 1040,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09558551970895943,
+        "success_rate": 0.7557692307692307
+    },
+    {
+        "step": 1050,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09537958597009177,
+        "success_rate": 0.758095238095238
+    },
+    {
+        "step": 1060,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09506809987427414,
+        "success_rate": 0.7594339622641509
+    },
+    {
+        "step": 1070,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.0947839583309157,
+        "success_rate": 0.7607476635514019
+    },
+    {
+        "step": 1080,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09446826240851967,
+        "success_rate": 0.762962962962963
+    },
+    {
+        "step": 1090,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09432462739217642,
+        "success_rate": 0.763302752293578
+    },
+    {
+        "step": 1100,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09419461387332845,
+        "success_rate": 0.7645454545454545
+    },
+    {
+        "step": 1110,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.09372321887511705,
+        "success_rate": 0.7657657657657657
+    },
+    {
+        "step": 1120,
+        "num_nodes": 17,
+        "num_edges": 33.0,
+        "mse": 0.0933134343656096,
+        "success_rate": 0.7669642857142858
+    },
+    {
+        "step": 1130,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.0931886804252823,
+        "success_rate": 0.7672566371681416
+    },
+    {
+        "step": 1140,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09302970712055034,
+        "success_rate": 0.7684210526315789
+    },
+    {
+        "step": 1150,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09292962195820433,
+        "success_rate": 0.7678260869565218
+    },
+    {
+        "step": 1160,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09243067256076637,
+        "success_rate": 0.7698275862068965
+    },
+    {
+        "step": 1170,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09217457709328737,
+        "success_rate": 0.770940170940171
+    },
+    {
+        "step": 1180,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09187368521234583,
+        "success_rate": 0.7720338983050847
+    },
+    {
+        "step": 1190,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09158566668760965,
+        "success_rate": 0.7739495798319328
+    },
+    {
+        "step": 1200,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09125403857487528,
+        "success_rate": 0.7758333333333334
+    },
+    {
+        "step": 1210,
+        "num_nodes": 18,
+        "num_edges": 34.0,
+        "mse": 0.09084956301505115,
+        "success_rate": 0.7776859504132232
+    },
+    {
+        "step": 1220,
+        "num_nodes": 19,
+        "num_edges": 35.0,
+        "mse": 0.09053353820725568,
+        "success_rate": 0.7786885245901639
+    },
+    {
+        "step": 1230,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.0904016883470909,
+        "success_rate": 0.7796747967479675
+    },
+    {
+        "step": 1240,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.08996617618099433,
+        "success_rate": 0.7814516129032258
+    },
+    {
+        "step": 1250,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.08966814276082115,
+        "success_rate": 0.7824
+    },
+    {
+        "step": 1260,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.08924055277373817,
+        "success_rate": 0.7841269841269841
+    },
+    {
+        "step": 1270,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.08889606344278785,
+        "success_rate": 0.7858267716535433
+    },
+    {
+        "step": 1280,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.0885226628474341,
+        "success_rate": 0.7875
+    },
+    {
+        "step": 1290,
+        "num_nodes": 19,
+        "num_edges": 36.0,
+        "mse": 0.08818354844308884,
+        "success_rate": 0.7891472868217054
+    },
+    {
+        "step": 1300,
+        "num_nodes": 19,
+        "num_edges": 37.0,
+        "mse": 0.08789669334497142,
+        "success_rate": 0.79
+    },
+    {
+        "step": 1310,
+        "num_nodes": 20,
+        "num_edges": 38.0,
+        "mse": 0.08759218933048557,
+        "success_rate": 0.7908396946564885
+    },
+    {
+        "step": 1320,
+        "num_nodes": 20,
+        "num_edges": 38.0,
+        "mse": 0.08740291559174876,
+        "success_rate": 0.7916666666666666
+    },
+    {
+        "step": 1330,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08718117354013816,
+        "success_rate": 0.7924812030075188
+    },
+    {
+        "step": 1340,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08696476965668358,
+        "success_rate": 0.7940298507462686
+    },
+    {
+        "step": 1350,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08667938385607156,
+        "success_rate": 0.7955555555555556
+    },
+    {
+        "step": 1360,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08665331718858583,
+        "success_rate": 0.7955882352941176
+    },
+    {
+        "step": 1370,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08642795974657962,
+        "success_rate": 0.7970802919708029
+    },
+    {
+        "step": 1380,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08620918802866567,
+        "success_rate": 0.7978260869565217
+    },
+    {
+        "step": 1390,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08586835043252757,
+        "success_rate": 0.7992805755395683
+    },
+    {
+        "step": 1400,
+        "num_nodes": 20,
+        "num_edges": 39.0,
+        "mse": 0.08576157433277426,
+        "success_rate": 0.8
+    },
+    {
+        "step": 1410,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08542583943290814,
+        "success_rate": 0.8014184397163121
+    },
+    {
+        "step": 1420,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08528796324145128,
+        "success_rate": 0.8021126760563381
+    },
+    {
+        "step": 1430,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08497886376084456,
+        "success_rate": 0.8027972027972028
+    },
+    {
+        "step": 1440,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08470097444560473,
+        "success_rate": 0.8041666666666667
+    },
+    {
+        "step": 1450,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08437245762994394,
+        "success_rate": 0.8055172413793104
+    },
+    {
+        "step": 1460,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08402596953853825,
+        "success_rate": 0.8068493150684931
+    },
+    {
+        "step": 1470,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08387783812930938,
+        "success_rate": 0.8081632653061225
+    },
+    {
+        "step": 1480,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08357682003805743,
+        "success_rate": 0.8087837837837838
+    },
+    {
+        "step": 1490,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08340183671920691,
+        "success_rate": 0.8093959731543624
+    },
+    {
+        "step": 1500,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08311605944696503,
+        "success_rate": 0.8106666666666666
+    },
+    {
+        "step": 1510,
+        "num_nodes": 21,
+        "num_edges": 41.0,
+        "mse": 0.08302927623356551,
+        "success_rate": 0.8105960264900662
+    },
+    {
+        "step": 1520,
+        "num_nodes": 22,
+        "num_edges": 42.0,
+        "mse": 0.08294312733624172,
+        "success_rate": 0.8105263157894737
+    },
+    {
+        "step": 1530,
+        "num_nodes": 22,
+        "num_edges": 42.0,
+        "mse": 0.08270932051733317,
+        "success_rate": 0.8117647058823529
+    },
+    {
+        "step": 1540,
+        "num_nodes": 22,
+        "num_edges": 42.0,
+        "mse": 0.08241195997496464,
+        "success_rate": 0.812987012987013
+    },
+    {
+        "step": 1550,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08232541483807877,
+        "success_rate": 0.8129032258064516
+    },
+    {
+        "step": 1560,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08215877655411183,
+        "success_rate": 0.8134615384615385
+    },
+    {
+        "step": 1570,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08210461446908009,
+        "success_rate": 0.8146496815286625
+    },
+    {
+        "step": 1580,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08190455221252814,
+        "success_rate": 0.8158227848101266
+    },
+    {
+        "step": 1590,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08180250684025707,
+        "success_rate": 0.8163522012578617
+    },
+    {
+        "step": 1600,
+        "num_nodes": 22,
+        "num_edges": 43.0,
+        "mse": 0.08153411729149339,
+        "success_rate": 0.8175
+    },
+    {
+        "step": 1610,
+        "num_nodes": 22,
+        "num_edges": 44.0,
+        "mse": 0.0813948849686245,
+        "success_rate": 0.8186335403726708
+    },
+    {
+        "step": 1620,
+        "num_nodes": 22,
+        "num_edges": 44.0,
+        "mse": 0.08121816988020125,
+        "success_rate": 0.8197530864197531
+    },
+    {
+        "step": 1630,
+        "num_nodes": 23,
+        "num_edges": 45.0,
+        "mse": 0.08103485484331262,
+        "success_rate": 0.8208588957055215
+    },
+    {
+        "step": 1640,
+        "num_nodes": 23,
+        "num_edges": 45.0,
+        "mse": 0.0808744900197762,
+        "success_rate": 0.8219512195121951
+    },
+    {
+        "step": 1650,
+        "num_nodes": 23,
+        "num_edges": 45.0,
+        "mse": 0.08067609526850412,
+        "success_rate": 0.823030303030303
+    },
+    {
+        "step": 1660,
+        "num_nodes": 23,
+        "num_edges": 45.0,
+        "mse": 0.08043947589811133,
+        "success_rate": 0.8234939759036145
+    },
+    {
+        "step": 1670,
+        "num_nodes": 23,
+        "num_edges": 46.0,
+        "mse": 0.08030010433144003,
+        "success_rate": 0.8239520958083832
+    },
+    {
+        "step": 1680,
+        "num_nodes": 23,
+        "num_edges": 46.0,
+        "mse": 0.08016978430433179,
+        "success_rate": 0.825
+    },
+    {
+        "step": 1690,
+        "num_nodes": 23,
+        "num_edges": 46.0,
+        "mse": 0.07995176989316702,
+        "success_rate": 0.8260355029585799
+    },
+    {
+        "step": 1700,
+        "num_nodes": 23,
+        "num_edges": 46.0,
+        "mse": 0.07975832342796896,
+        "success_rate": 0.8264705882352941
+    },
+    {
+        "step": 1710,
+        "num_nodes": 23,
+        "num_edges": 47.0,
+        "mse": 0.07964393864695339,
+        "success_rate": 0.8269005847953217
+    },
+    {
+        "step": 1720,
+        "num_nodes": 23,
+        "num_edges": 48.0,
+        "mse": 0.07950279070965624,
+        "success_rate": 0.8267441860465117
+    },
+    {
+        "step": 1730,
+        "num_nodes": 23,
+        "num_edges": 48.0,
+        "mse": 0.07931038800674158,
+        "success_rate": 0.8277456647398844
+    },
+    {
+        "step": 1740,
+        "num_nodes": 24,
+        "num_edges": 49.0,
+        "mse": 0.07921144703394367,
+        "success_rate": 0.828735632183908
+    },
+    {
+        "step": 1750,
+        "num_nodes": 24,
+        "num_edges": 49.0,
+        "mse": 0.0791499162660132,
+        "success_rate": 0.8291428571428572
+    },
+    {
+        "step": 1760,
+        "num_nodes": 24,
+        "num_edges": 50.0,
+        "mse": 0.07905383925551966,
+        "success_rate": 0.8301136363636363
+    },
+    {
+        "step": 1770,
+        "num_nodes": 24,
+        "num_edges": 50.0,
+        "mse": 0.07883250412985389,
+        "success_rate": 0.8310734463276837
+    },
+    {
+        "step": 1780,
+        "num_nodes": 24,
+        "num_edges": 50.0,
+        "mse": 0.07882739044606568,
+        "success_rate": 0.8308988764044943
+    },
+    {
+        "step": 1790,
+        "num_nodes": 24,
+        "num_edges": 51.0,
+        "mse": 0.07887217473523467,
+        "success_rate": 0.8318435754189945
+    },
+    {
+        "step": 1800,
+        "num_nodes": 24,
+        "num_edges": 51.0,
+        "mse": 0.07867605335177742,
+        "success_rate": 0.8322222222222222
+    },
+    {
+        "step": 1810,
+        "num_nodes": 24,
+        "num_edges": 51.0,
+        "mse": 0.0785694858534756,
+        "success_rate": 0.8325966850828729
+    },
+    {
+        "step": 1820,
+        "num_nodes": 24,
+        "num_edges": 52.0,
+        "mse": 0.07844116045415253,
+        "success_rate": 0.8335164835164836
+    },
+    {
+        "step": 1830,
+        "num_nodes": 24,
+        "num_edges": 52.0,
+        "mse": 0.07833133987297959,
+        "success_rate": 0.833879781420765
+    },
+    {
+        "step": 1840,
+        "num_nodes": 24,
+        "num_edges": 52.0,
+        "mse": 0.07834027466867895,
+        "success_rate": 0.8342391304347826
+    },
+    {
+        "step": 1850,
+        "num_nodes": 24,
+        "num_edges": 52.0,
+        "mse": 0.07826226691184264,
+        "success_rate": 0.8351351351351352
+    },
+    {
+        "step": 1860,
+        "num_nodes": 25,
+        "num_edges": 53.0,
+        "mse": 0.07826400269845891,
+        "success_rate": 0.8349462365591398
+    },
+    {
+        "step": 1870,
+        "num_nodes": 25,
+        "num_edges": 53.0,
+        "mse": 0.07817510271945477,
+        "success_rate": 0.8352941176470589
+    },
+    {
+        "step": 1880,
+        "num_nodes": 25,
+        "num_edges": 53.0,
+        "mse": 0.0781121442655072,
+        "success_rate": 0.8361702127659575
+    },
+    {
+        "step": 1890,
+        "num_nodes": 25,
+        "num_edges": 53.0,
+        "mse": 0.07805183432199922,
+        "success_rate": 0.837037037037037
+    },
+    {
+        "step": 1900,
+        "num_nodes": 25,
+        "num_edges": 53.0,
+        "mse": 0.07804850517382587,
+        "success_rate": 0.8378947368421052
+    },
+    {
+        "step": 1910,
+        "num_nodes": 25,
+        "num_edges": 54.0,
+        "mse": 0.07796445826912014,
+        "success_rate": 0.8387434554973822
+    },
+    {
+        "step": 1920,
+        "num_nodes": 25,
+        "num_edges": 54.0,
+        "mse": 0.07788162230269938,
+        "success_rate": 0.8390625
+    },
+    {
+        "step": 1930,
+        "num_nodes": 25,
+        "num_edges": 55.0,
+        "mse": 0.07786473049452082,
+        "success_rate": 0.8393782383419689
+    },
+    {
+        "step": 1940,
+        "num_nodes": 25,
+        "num_edges": 55.0,
+        "mse": 0.07769339815596547,
+        "success_rate": 0.8396907216494846
+    },
+    {
+        "step": 1950,
+        "num_nodes": 25,
+        "num_edges": 56.0,
+        "mse": 0.07753999116898222,
+        "success_rate": 0.84
+    },
+    {
+        "step": 1960,
+        "num_nodes": 25,
+        "num_edges": 57.0,
+        "mse": 0.07745760345700008,
+        "success_rate": 0.8408163265306122
+    },
+    {
+        "step": 1970,
+        "num_nodes": 25,
+        "num_edges": 57.0,
+        "mse": 0.07744724546498295,
+        "success_rate": 0.8411167512690355
+    },
+    {
+        "step": 1980,
+        "num_nodes": 25,
+        "num_edges": 58.0,
+        "mse": 0.0774778564521741,
+        "success_rate": 0.8409090909090909
+    },
+    {
+        "step": 1990,
+        "num_nodes": 26,
+        "num_edges": 59.0,
+        "mse": 0.07753007398731995,
+        "success_rate": 0.8412060301507538
+    },
+    {
+        "step": 2000,
+        "num_nodes": 26,
+        "num_edges": 59.0,
+        "mse": 0.07748480120776889,
+        "success_rate": 0.8415
+    }
+]

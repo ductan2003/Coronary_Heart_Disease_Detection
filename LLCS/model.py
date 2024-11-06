@@ -69,12 +69,13 @@ class LLCS(object):
     def fit(self, epoch=1):
         self.export_parameter()
         dataset_path = DATASET[self.dataset_name]
-        dataset_path = "./Disease_dataset/Raw/Dataset3_Official/NumpyData_3031/train/"
+        # dataset_path = "./Disease_dataset/Raw/Dataset3_Official/NumpyData_3031/train/"
 
         t_ins = 0
         for i in range(epoch):
             for filename in os.listdir(dataset_path):
                 if (filename.endswith(".npy")):
+                    print(filename)
                     file_path = os.path.join(dataset_path, filename)
                     ecg_array = np.load(file_path)
 
@@ -127,10 +128,11 @@ class LLCS(object):
                     first.update_edge_for_winner(second)
 
                     self.graph.update_node() 
-                    print("*****************")
 
                     if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
                         self.capture_model()
+            if (i == epoch - 1):
+                self.export_log()
 
     def evaluate(self):
         count = 0
@@ -174,7 +176,7 @@ class LLCS(object):
 
 
 
-dataset_name = "0410"
+dataset_name = "NonOverlap_testing"
 dataset_log_path = "./Dataset_log/" + dataset_name + "/"
 model = LLCS(dataset_name=dataset_name, dataset_log_path=dataset_log_path)
 model.fit(epoch = 2)
