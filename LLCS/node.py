@@ -34,7 +34,14 @@ class Node(object):
     def get_neighbors(self):
         return self.neighbors
     
+    def get_neighbor_by_node(self, other_node):
+        for neighbor in self.get_neighbors():
+            if (neighbor.get_node() == other_node):
+                return neighbor
+        return
+    
     def add_neighbor(self, neighbor):
+        print(neighbor)
         edge = Edge(neighbor)
         self.neighbors.append(edge)
 
@@ -154,13 +161,19 @@ class Node(object):
 
         for neighbor in self.get_neighbors():
             neighbor.age += 1
+
+            neighbor_edge = neighbor.get_node().get_neighbor_by_node(self)
+            neighbor_edge.age += 1
+
             if (neighbor == second):
                 neighbor.age = 0
-    
+                second_edge = second.get_neighbor_by_node(self)
+                second_edge.age = 0
+
     def update_edge(self):
         for neighbor in self.get_neighbors():
-            if (self.age > MODEL_CONSTANT.MAXIMUM_EDGE_AGE):
-                self.delete_neighbor_by_edge(neighbor)
+            if (neighbor.age > MODEL_CONSTANT.MAXIMUM_EDGE_AGE):
+                self.delete_neighbor_by_node(neighbor.get_node())
             
         
             

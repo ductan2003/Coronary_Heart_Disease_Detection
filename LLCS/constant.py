@@ -35,14 +35,15 @@ class MODEL_CONSTANT:
     TY = 50
     TV = 50
 
-    MAXIMUM_EDGE_AGE = 5
+    MAXIMUM_EDGE_AGE = 150
 
-    THETA = 5
+    THETA = 15
 
-    CAPTURE_TIME = 10
+    CAPTURE_TIME = 2
 
 DATASET = {
     "Overlap_testing": "./Disease_dataset/Overlap_testing/NumpyData/train/",
+    "Overlap_testing_5000": "./Disease_dataset/Overlap_testing_5000/NumpyData/",
     "NonOverlap_testing": "./Disease_dataset/NonOverlap_testing/NumpyData/train/"
 }
     

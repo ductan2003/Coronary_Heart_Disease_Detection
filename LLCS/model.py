@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import json
 from datetime import datetime
-
+import random
 
 from graph import Graph
 from node import Node
@@ -39,6 +39,9 @@ class LLCS(object):
         self.dataset_log_path = dataset_log_path + timestamp_str + "/"
         os.makedirs(self.dataset_log_path , exist_ok=True)
 
+    def set_dataset_name(self, dataset_name):
+        self.dataset_name = dataset_name
+
     def export_log(self):
         with open(self.dataset_log_path + "log_until_" + str(self.step) + ".json", 'w') as json_file:
             json.dump(self.graph.capture_data, json_file, indent=4)  # indent=4 for pretty-printing
@@ -73,64 +76,75 @@ class LLCS(object):
 
         t_ins = 0
         for i in range(epoch):
+            samples_list = []
             for filename in os.listdir(dataset_path):
                 if (filename.endswith(".npy")):
-                    print(filename)
-                    file_path = os.path.join(dataset_path, filename)
-                    ecg_array = np.load(file_path)
+                    samples_list.append(filename)
+            random.seed(42)
+            random.shuffle(samples_list)
 
-                    parts = filename.split('_')
-                    if len(parts) >= 3:
-                        timestamp, label, file_type = parts
+            for filename in samples_list:
+                file_path = os.path.join(dataset_path, filename)
+                ecg_array = np.load(file_path)
 
-                    label = int(label)
-                    
-                    output = np.zeros((1, 4), dtype=int)
-                    if 0 <= label < 4:
-                        # Set the specified index to 1
-                        output[0, label] = 1
-                    else:
-                        print("Invalid index. Please provide a value between 0 and 5.")
+                parts = filename.split('_')
+                if len(parts) >= 3:
+                    timestamp, label, file_type = parts
+
+                label = int(label)
                 
-                    input_node = Node(ecg_array, target=output)
+                output = np.zeros((1, 4), dtype=int)
+                if 0 <= label < 4:
+                    # Set the specified index to 1
+                    output[0, label] = 1
+                else:
+                    print("Invalid index. Please provide a value between 0 and 5.")
+            
+                input_node = Node(ecg_array, target=output)
 
-                    # 1.1. find best and second match
-                    first, second = model.graph.find_best_and_second_best_node(input_node)
+                # 1.1. find best and second match
+                first, second = model.graph.find_best_and_second_best_node(input_node)
 
-                    # update quality measure for learning
-                    first.update_input_weight(input_node, best_node=True)
-                    for neighbor in first.get_neighbors():
-                        neighbor.get_node().update_input_weight(input_node, best_node=False)
+                # update quality measure for learning
+                first.update_input_weight(input_node, best_node=True)
+                for neighbor in first.get_neighbors():
+                    neighbor.get_node().update_input_weight(input_node, best_node=False)
 
-                    self.graph.activate_node(input_node)
-                    self.graph.update_out_weight(input_node)
+                self.graph.activate_node(input_node)
+                self.graph.update_out_weight(input_node)
 
-                    self.step += 1
-                    self.total_mse += np.mean((input_node.actual_output - input_node.target) ** 2)
+                self.step += 1
+                self.total_mse += np.mean((input_node.actual_output - input_node.target) ** 2)
 
-                    if (np.all(softmax(input_node.actual_output) == input_node.target)):
-                        self.true_detect += 1
+                if (np.all(softmax(input_node.actual_output) == input_node.target)):
+                    self.true_detect += 1
 
-                    t_ins += 1
-                    
-                    if (t_ins == MODEL_CONSTANT.THETA * self.graph.get_graph_size()):
-                        print("STEP", self.step)
-                        self.graph.log[self.step] = "insert"
-                        self.graph.update_BI()
-                        self.graph.get_q_and_f_node()
-                        t_ins = 0
+                t_ins += 1
+                
+                if (t_ins == MODEL_CONSTANT.THETA * self.graph.get_graph_size()):
+                    print("STEP INSERT", self.step)
+                    self.graph.log[self.step] = "insert"
+                    self.graph.update_BI()
+                    self.graph.get_q_and_f_node()
+                    t_ins = 0
 
-                    self.graph.check_deletion_criteria()
+                self.graph.check_deletion_criteria()
 
-                    first.update_error_counter(input_node)
-                    first.decrease_age_for_winner()
-                    first.decrease_insertion_threshold_for_winner()
-                    first.update_edge_for_winner(second)
+                first.update_error_counter(input_node)
+                first.decrease_age_for_winner()
+                first.decrease_insertion_threshold_for_winner()
+                first.update_edge_for_winner(second)
 
+                # for edge in first.get_neighbors():
+                #     print(f"Edge from A {first} to {edge.get_node()} has age: {edge.age}")
+
+                # for edge in second.get_neighbors():
+                #     print(f"Edge from B  {second} to {edge.get_node()} has age: {edge.age}")
+                if (self.graph.get_graph_size() > 2):
                     self.graph.update_node() 
 
-                    if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
-                        self.capture_model()
+                if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
+                    self.capture_model()
             if (i == epoch - 1):
                 self.export_log()
 
@@ -177,8 +191,9 @@ class LLCS(object):
 
 
 dataset_name = "NonOverlap_testing"
-dataset_log_path = "./Dataset_log/" + dataset_name + "/"
+log_name = "haha"
+dataset_log_path = "./Dataset_log/" + log_name + "/"
 model = LLCS(dataset_name=dataset_name, dataset_log_path=dataset_log_path)
-model.fit(epoch = 2)
+model.fit(epoch = 3)
 
 print(model.graph.log)
