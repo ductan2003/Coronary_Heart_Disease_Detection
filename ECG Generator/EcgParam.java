@@ -100,6 +100,30 @@ public class EcgParam {
                 
                 value = min + (max - min) * random.nextDouble();
                 break;
+            case "Working-Normal":
+                defaultNum = 2.211;
+                range = 0.1;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Abnormal":
+                defaultNum = 2.494;
+                range = 0.1;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Overlap":
+                defaultNum = 2.3525;
+                range = 0.04;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
             default:
                 System.out.print("Wrong type");
                 // code block
@@ -139,6 +163,24 @@ public class EcgParam {
             case "Resting-Overlap":
                 min = 56.50;
                 max = 59.50;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Normal":
+                min = 65.00;
+                max = 73.00;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Abnormal":
+                min = 126.00;
+                max = 140.00;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Overlap":
+                min = 73.00;
+                max = 126.00;
                 
                 value = min + (max - min) * random.nextDouble();
                 break;
@@ -194,7 +236,29 @@ public class EcgParam {
                 
                 value = min + (max - min) * random.nextDouble();
                 break;
-            case "Working":
+            case "Working-Normal":
+                defaultNum = 1;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Abnormal":
+                defaultNum = 1;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Overlap":
+                defaultNum = 1;
+                range = 0.15;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
                 break;
             case "Exercising":
                 break;
@@ -316,6 +380,31 @@ public class EcgParam {
                 
                 value = min + (max - min) * random.nextDouble();
                 break;
+            case "Working-Normal":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Abnormal":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Overlap":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+
             case "Working":
                 break;
             case "Exercising":
@@ -370,6 +459,31 @@ public class EcgParam {
                 
                 value = min + (max - min) * random.nextDouble();
                 break;
+            case "Working-Normal":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Abnormal":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+            case "Working-Overlap":
+                defaultNum = 0.25;
+                range = 0.03;
+                min = defaultNum - range;
+                max = defaultNum + range;
+                
+                value = min + (max - min) * random.nextDouble();
+                break;
+
             case "Working":
                 break;
             case "Exercising":
