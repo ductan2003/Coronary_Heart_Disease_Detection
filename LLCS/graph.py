@@ -15,14 +15,14 @@ class Graph(object):
         input = np.random.randint(0, 2, (30, 30))
         new_row = np.zeros((1, 30), dtype=int)
         updated_input_array = np.append(input, new_row, axis=0)
-        output = np.random.uniform(0, 1, (1, 6))
+        output = np.random.uniform(0, 1, (1, 4))
         random_node_1 = Node(input_weight=updated_input_array, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_1)
 
         input = np.random.randint(0, 2, (30, 30))
         new_row = np.zeros((1, 30), dtype=int)
         updated_input_array = np.append(input, new_row, axis=0)
-        output = np.random.uniform(0, 1, (1, 6))
+        output = np.random.uniform(0, 1, (1, 4))
         random_node_2 = Node(input_weight=updated_input_array, output_weight=output, insertion_threshold=1)
         self.graph.append(random_node_2)
 
@@ -201,12 +201,14 @@ class Graph(object):
         # print("age", min_item.age)
         if (MODEL_CONSTANT.DELETION_THRESHOLD > min and min_item.get_neighbor_size() >= 2 and min_item.age < MODEL_CONSTANT.MINIMAL_AGE and min_item.get_quality_measure_for_learning() < MODEL_CONSTANT.SUFFICIENT_STABILIZATION):
             # print("delete")
-            # self.log["delete"] = "true"
+            self.log["delete"] = "true"
+            for neighbor in min_item.get_neighbors():
+                neighbor.get_node().delete_neighbor_by_node(min_item)
             self.remove_node(min_item)
-        else:
-            print("no delete")
+
 
     def update_node(self):
         for node in self.graph:
-            if (node.get_neighbor_size() == 0):
+            if (node.get_neighbor_size() == 0):                    
                 self.remove_node(node)
+            node.update_edge()
