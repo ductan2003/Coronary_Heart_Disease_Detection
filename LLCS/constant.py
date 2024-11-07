@@ -44,6 +44,8 @@ class MODEL_CONSTANT:
 DATASET = {
     "Overlap_testing": "./Disease_dataset/Overlap_testing/NumpyData/train/",
     "Overlap_testing_5000": "./Disease_dataset/Overlap_testing_5000/NumpyData/",
-    "NonOverlap_testing": "./Disease_dataset/NonOverlap_testing/NumpyData/train/"
+    "NonOverlap_testing": "./Disease_dataset/NonOverlap_testing/NumpyData/train/",
+    "Ex1_NonOverlap_3000": "./Disease_dataset/Ex1_NonOverlap_3000/NumpyData/",
+    "Ex1_Overlap_3000": "./Disease_dataset/Ex1_Overlap_3000/NumpyData/"
 }
     

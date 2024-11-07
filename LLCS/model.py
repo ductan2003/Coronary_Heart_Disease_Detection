@@ -9,7 +9,6 @@ from graph import Graph
 from node import Node
 from constant import MODEL_CONSTANT, DATASET
 
-import numpy as np
 
 def softmax(array):
     # Subtract the maximum value from the array for numerical stability
@@ -64,18 +63,17 @@ class LLCS(object):
         }
         self.graph.capture_data.append(data)
 
-        if (self.step % 2000 == 0):
+        if (self.step % 2000 == 1):
             self.export_log()
 
 
-
-    def fit(self, epoch=1):
+    def fit(self, max_epoch=1):
         self.export_parameter()
         dataset_path = DATASET[self.dataset_name]
         # dataset_path = "./Disease_dataset/Raw/Dataset3_Official/NumpyData_3031/train/"
 
         t_ins = 0
-        for i in range(epoch):
+        for i in range(max_epoch):
             samples_list = []
             for filename in os.listdir(dataset_path):
                 if (filename.endswith(".npy")):
@@ -143,9 +141,9 @@ class LLCS(object):
                 if (self.graph.get_graph_size() > 2):
                     self.graph.update_node() 
 
-                if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
-                    self.capture_model()
-            if (i == epoch - 1):
+                # if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
+                self.capture_model()
+            if (i == max_epoch - 1):
                 self.export_log()
 
     def evaluate(self):
@@ -190,10 +188,10 @@ class LLCS(object):
 
 
 
-dataset_name = "NonOverlap_testing"
-log_name = "haha"
+dataset_name = "Ex1_NonOverlap_3000"
+log_name = "Experiment1_NonOverlap"
 dataset_log_path = "./Dataset_log/" + log_name + "/"
 model = LLCS(dataset_name=dataset_name, dataset_log_path=dataset_log_path)
-model.fit(epoch = 3)
+model.fit(max_epoch = 3)
 
 print(model.graph.log)
