@@ -4,8 +4,12 @@ import os
 import json
 from datetime import datetime
 import random
+import matplotlib.pyplot as plt
+import networkx as nx
 
-from graph import Graph
+
+# from graph import Graph
+from new_graph import Graph
 from node import Node
 from constant import MODEL_CONSTANT, DATASET
 
@@ -33,7 +37,7 @@ class LLCS(object):
         self.true_detect = 0
 
         # Current timestamp
-        timestamp_str = timestamp_str = datetime.now().strftime("%y-%m-%d-%H:%M:%S")
+        timestamp_str = datetime.now().strftime("%y-%m-%d-%H:%M:%S")
 
         self.dataset_log_path = dataset_log_path + timestamp_str + "/"
         os.makedirs(self.dataset_log_path , exist_ok=True)
@@ -41,7 +45,15 @@ class LLCS(object):
     def set_dataset_name(self, dataset_name):
         self.dataset_name = dataset_name
 
+    def set_log_path(self, dataset_log_path):
+        # Current timestamp
+        timestamp_str = timestamp_str = datetime.now().strftime("%y-%m-%d-%H:%M:%S")
+
+        self.dataset_log_path = dataset_log_path + timestamp_str + "/"
+        os.makedirs(self.dataset_log_path , exist_ok=True)
+
     def export_log(self):
+
         with open(self.dataset_log_path + "log_until_" + str(self.step) + ".json", 'w') as json_file:
             json.dump(self.graph.capture_data, json_file, indent=4)  # indent=4 for pretty-printing
             
@@ -50,8 +62,26 @@ class LLCS(object):
     def export_parameter(self):
         model_constants = {attr: value for attr, value in MODEL_CONSTANT.__dict__.items() if not attr.startswith('__')}
 
-        with open(self.dataset_log_path + "parameters_log.json", 'w') as json_file:
+        with open(self.dataset_log_path + "parameters_log.txt", 'w') as json_file:
             json.dump(model_constants, json_file, indent=4)  # indent=4 for pretty-printing
+
+    def export_graph(self):
+        # Visualize the graph with 2D layout
+        # plt.figure(figsize=(12, 8))
+        # # node_positions = nx.spring_layout(self.graph.new_graph, seed=42)  # Position nodes in 2D space using spring layout
+
+        # # Plot the nodes, edges, and labels
+        # nx.draw_networkx_nodes(self.graph.new_graph, self.graph.node_positions, node_size=500, node_color='skyblue', alpha=0.7)
+        # nx.draw_networkx_edges(self.graph.new_graph, self.graph.node_positions, width=1.0, alpha=0.5, edge_color='gray')
+        # nx.draw_networkx_labels(self.graph.new_graph, self.graph.node_positions, font_size=10, font_color='black')
+        # # nx.draw(self.graph.new_graph, pos=self.node_positions, with_labels=True, node_color='skyblue', edge_color='gray')
+
+        # # Set plot title and labels
+        # plt.title('Step ' + str(self.step))
+        # plt.axis('off')  # Turn off the axis for better visualization
+
+        os.makedirs(self.dataset_log_path + "graph/", exist_ok=True)
+        nx.write_graphml(G, self.dataset_log_path + "graph/" + str(self.step) + ".graphml")
 
     def capture_model(self):
         data = {
@@ -123,7 +153,7 @@ class LLCS(object):
                     print("STEP INSERT", self.step)
                     self.graph.log[self.step] = "insert"
                     self.graph.update_BI()
-                    self.graph.get_q_and_f_node()
+                    self.graph.get_q_and_f_node(self.step)
                     t_ins = 0
 
                 self.graph.check_deletion_criteria()
@@ -131,6 +161,10 @@ class LLCS(object):
                 first.update_error_counter(input_node)
                 first.decrease_age_for_winner()
                 first.decrease_insertion_threshold_for_winner()
+
+                if (not first.is_neighbor(second)):
+                    first.add_neighbor(second)
+                    self.graph.new_graph.add_edge(first.name, second.name)
                 first.update_edge_for_winner(second)
 
                 # for edge in first.get_neighbors():
@@ -143,12 +177,18 @@ class LLCS(object):
 
                 # if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
                 self.capture_model()
+                # if (self.step % 200) == 1:
+                #     self.export_graph()
+            # self.numpy_log()
             if (i == max_epoch - 1):
                 self.export_log()
 
     def evaluate(self):
         count = 0
-        datasetPath = "./Dataset3_Official/NumpyData/val/"
+        count_rn = 0
+        count_ra = 0
+        count_wn = 0
+        datasetPath = "./Disease_dataset/EvalDataset/NumpyData/"
 
         index = 0
         for filename in os.listdir(datasetPath):
@@ -163,35 +203,57 @@ class LLCS(object):
 
                 label = int(label)
 
-                if label == 0:
-                    output = np.array([[1, 0]])
+                output = np.zeros((1, 4), dtype=int)
+                if 0 <= label < 4:
+                    # Set the specified index to 1
+                    output[0, label] = 1
                 else:
-                    output = np.array([[0, 1]])
+                    print("Invalid index. Please provide a value between 0 and 5.")
+
             
                 input_node = Node(ecg_array, target=output)
                 model.graph.activate_node(input_node=input_node)
 
                 output = model.graph.get_actual_output()
-                softmax_values = softmax(output)
 
-                print("softmax_values", softmax_values)
-
-                if (softmax_values[1] > softmax_values[0]):
-                    detect = 1
-                else:
-                    detect = 0
-                
-                if (detect == label):
+                if (np.all(softmax(output) == input_node.target)):
                     count += 1
-        
-        print("Total ",count)
+                    if (label == 0):
+                        count_rn += 1
+                    elif (label == 1):
+                        count_ra += 1
+                    elif (label == 2):
+                        count_wn += 1
 
+        print("Total ",count, "out of 1550")
+        print("RN ", count_rn)
+        print("RA ", count_ra)
+        print("WN ", count_wn)
+
+
+    def numpy_log(self):
+        timestamp_str = timestamp_str = datetime.now().strftime("%y-%m-%d-%H:%M:%S")
+        output_path = "./Node_log/"
+
+        log_path = output_path + timestamp_str + "/"
+        os.makedirs(log_path , exist_ok=True)
+
+        index = 0
+        for node in self.graph.graph:
+            np.save(log_path + str(index) + ".npy", node.input_weight)
+            index += 1
 
 
 dataset_name = "Ex1_NonOverlap_3000"
-log_name = "Experiment1_NonOverlap"
-dataset_log_path = "./Dataset_log/" + log_name + "/"
+log_name = "Experiment3"
+dataset_log_path = "./Dataset_log_test/" + log_name + "/"
 model = LLCS(dataset_name=dataset_name, dataset_log_path=dataset_log_path)
-model.fit(max_epoch = 3)
+model.fit(max_epoch = 1)
+
+
+# model.set_dataset_name("Ex2_Dataset4_1050")
+# model.fit(max_epoch = 3)
+
+# model.evaluate()
 
 print(model.graph.log)
