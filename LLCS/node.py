@@ -1,12 +1,13 @@
 import numpy as np
 import random
 import math
+from datetime import datetime
 
 from constant import MODEL_CONSTANT
 from edge import Edge
 
 class Node(object):
-    def __init__(self, input_weight, output_weight=None, target=None,
+    def __init__(self, input_weight, output_weight=None, target=None, name="",
                  age=1, short_term_error=0, long_term_error=0, insertion_threshold=0, inherited_error=0):
         self.input_weight = input_weight
         self.output_weight = output_weight
@@ -27,6 +28,8 @@ class Node(object):
         self.width_of_gaussian = 0
 
         self.quality_measure_for_insertion = 0
+
+        self.name = name
 
     def get_neighbor_size(self):
         return len(self.neighbors)
@@ -156,8 +159,8 @@ class Node(object):
         self.insertion_threshold = (1 - alpha) * math.exp(-1 / MODEL_CONSTANT.TV) * self.insertion_threshold
 
     def update_edge_for_winner(self, second):
-        if (not self.is_neighbor(second)):
-            self.add_neighbor(second)
+        # if (not self.is_neighbor(second)):
+        #     self.add_neighbor(second)
 
         for neighbor in self.get_neighbors():
             neighbor.age += 1

@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from datetime import datetime
 
 from node import Node
 from constant import MODEL_CONSTANT
@@ -82,6 +83,8 @@ class Graph(object):
             elif distance <= second_best_distance:
                 second_best_distance = distance
                 second_best_node = node
+        
+        print("distance", best_distance)
 
         return best_node, second_best_node
     
@@ -161,7 +164,9 @@ class Graph(object):
                         insert_success = False
                         item.insertion_threshold += MODEL_CONSTANT.INSERTION_LEARNING_RATE * (item.long_term_error - item.insertion_threshold * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                 if (insert_success):
+                    timestamp_str = datetime.now().strftime("%y-%m-%d-%H:%M:%S")
                     self.log["success"] = 1000
+                    self.log[timestamp_str] = q
                     # print("insert success")
                     self.add_node(r)
                     q.delete_neighbor_by_node(f)
