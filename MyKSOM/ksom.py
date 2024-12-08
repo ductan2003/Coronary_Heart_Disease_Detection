@@ -4,8 +4,10 @@ import re
 from collections import Counter
 import random
 import json
+import time
 
-TIME_CONSTANT = 50
+
+TIME_CONSTANT = 100
 
 # Node class for the SOM
 class Node:
@@ -27,24 +29,11 @@ class Node:
         Calculate the Euclidean distance between the node's weights and the input data.
         Ensure input_data has the correct shape (flattened if necessary).
         """
-        # print(self.weights)
-        # print(input_data)
         return np.linalg.norm(self.weights - input_data)
 
 # KSOM class for the Self-Organizing Map
 class KSOM:
-    # def __init__(self, grid_size, dim, learning_rate=0.1, radius=1, max_iter=100):
-    #     self.grid_size = grid_size
-    #     self.dim = dim  # Dimensionality of the input data
-    #     self.learning_rate = learning_rate  # Initial learning rate
-    #     self.radius = radius  # Neighborhood radius
-    #     self.max_iter = max_iter  # Number of iterations
-    #     self.nodes = np.array([[Node(dim, learning_rate, radius) for _ in range(grid_size)] for _ in range(grid_size)])
-    #     self.train_error = 0
-    #     self.true_detect = 0
-    #     self.step = 1
-
-    def __init__(self, grid_size, dim, learning_rate=0.1, radius=1, max_iter=100):
+    def __init__(self, grid_size, dim, dataset_name = "DEFAULT", learning_rate=0.1, radius=1, max_iter=100):
         self.grid_size = grid_size
         self.dim = dim  # Dimensionality of the input data
         self.learning_rate = learning_rate  # Initial learning rate
@@ -56,6 +45,9 @@ class KSOM:
         self.step = 1
         self.log = []
         self.log_path = './data_log.json'
+        self.mse = 0
+
+        self.dataset_name = dataset_name
 
 
 
@@ -90,12 +82,14 @@ class KSOM:
                         "step": self.step,
                         "success_rate": self.true_detect / self.step
                     })
-                    with open(self.log_path, 'w') as json_file:
-                        json.dump(self.log, json_file)
 
             # Decay learning rate and radius over time
             self.learning_rate = self.learning_rate * (1 - epoch / self.max_iter)
             self.radius = self.radius * (1 - epoch / self.max_iter)
+            print("Dataset name: ", self.dataset_name, " - EPOCH ", epoch + 1, " out of ", self.max_iter)
+
+        with open("./" + str(self.step) + ".json", 'w') as json_file:
+            json.dump(self.log, json_file)
 
     def find_bmu(self, input_data):
         """
@@ -147,8 +141,6 @@ def load_data_from_directory(directory_path, seed=42):
     
     # Shuffle the list of files randomly
     random.shuffle(file_list)
-
-    print(len(file_list))
     
     # Loop through the shuffled list of files
     for filename in file_list:
@@ -167,19 +159,71 @@ def load_data_from_directory(directory_path, seed=42):
 
     return np.array(data), np.array(labels)
 
-if __name__ == "__main__":
-    # Set the directory containing the .npy files
-    directory_path = '../LLCS/Disease_dataset/Ex2_Dataset5_450/NumpyData/'  # Update this with the actual path to your files
-    
-    # Load all data from the directory
-    data, labels = load_data_from_directory(directory_path)
+if __name__ == "__main__":    
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env1/NumpyData/")
     # Create and train the KSOM model
-    som = KSOM(grid_size=10, dim=30*31, learning_rate=0.1, radius=1, max_iter=5)
+    som = KSOM(grid_size=10, dim=30*31, learning_rate=0.1, radius=1, max_iter=5, dataset_name="ENV1")
     som.train(data, labels)
 
-    # Get the trained map and the prediction for the first sample
-    trained_map = som.get_map()
-    predicted_class = som.predict(data[0].flatten())
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env2/NumpyData/")
+    som.dataset_name = "ENV2"
+    som.max_iter = 5
+    som.train(data, labels)
 
-    print(f"Predicted class for the first sample: {predicted_class}")
+    som.dataset_name = "ENV3"
+    som.max_iter = 7
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env3/NumpyData/")
+    som.train(data, labels)
 
+    som.dataset_name = "ENV4"
+    som.max_iter = 7
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env4/NumpyData/")
+    som.train(data, labels)
+    
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/")
+    count = 0
+    count_rn = 0
+    count_ra = 0
+    count_wn = 0
+    count_wa = 0
+    count_true = {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0
+    }
+
+    print("Start Evaluate KSOM")
+
+
+    start_time = time.time()
+
+    for input_data, label in zip(data, labels):
+        input_data = input_data.flatten()
+        bmu, bmu_pos = som.find_bmu(input_data)
+        count_true[str(label)] += 1
+
+        if (label == bmu.label):
+            if (label == 0):
+                count_rn += 1
+            elif (label == 1):
+                count_ra += 1
+            elif (label == 2):
+                count_wn += 1
+            elif (label == 3):
+                count_wa += 1
+
+    # print("RN ", count_rn)
+    # print("RA ", count_ra)
+    # print("WN ", count_wn)
+    # print("WA ", count_wa)
+    accuracy = (count_rn + count_ra + count_wn + count_wa) / (count_true["0"] + count_true["1"] + count_true["2"] + count_true["3"]) * 100
+    print("Accuracy: ", round(accuracy, 2), "%")
+    tar = (count_ra + count_wa) / (count_true["1"] + count_true["3"]) * 100
+    print("True Acceptance Rate (TAR): ", round(tar, 2), "%")
+    far = (count_true["0"] - count_rn + count_true["2"] - count_wn) / (count_true["0"] + count_true["2"]) * 100
+    print("False Acceptance Rate (FAR): ", round(far, 2), "%")
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Execution time for: {execution_time:.2f} seconds")

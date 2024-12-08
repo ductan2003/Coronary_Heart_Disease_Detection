@@ -30,6 +30,7 @@ class Node(object):
         self.quality_measure_for_insertion = 0
 
         self.name = name
+        self.last_activate = 0
 
     def get_neighbor_size(self):
         return len(self.neighbors)
@@ -50,6 +51,7 @@ class Node(object):
         neighbor.neighbors.append(Edge(self))
 
     def display_neighbor(self):
+        print(len(self.neighbors))
         for neighbor in self.neighbors:
             print(neighbor.get_node())
 
@@ -58,7 +60,6 @@ class Node(object):
             if neighbor.get_node() == node:
                 return True
         return False
-        return node in self.get_neighbors()
     
     def delete_neighbor_by_edge(self, edge):
         self.get_neighbors().remove(edge)
@@ -72,6 +73,7 @@ class Node(object):
 
         # Also remove this node from the neighbor's list of neighbors if bidirectional
         node.neighbors = [edge for edge in node.neighbors if edge.get_node() != self]
+
 
     def display(self):
         print("self.insertion_threshold", self.insertion_threshold)
@@ -110,7 +112,6 @@ class Node(object):
         for neighbor in self.get_neighbors():
             total_distance += self.get_input_distance(neighbor.get_node())
         self.width_of_gaussian = total_distance / self.get_neighbor_size()
-        # return total_distance / self.get_neighbor_size()
     
     def get_output_learning_rate(self):
         alpha = self.get_quality_measure_for_learning() / (1 + MODEL_CONSTANT.OUTPUT_ADAPTATION_THRESHOLD) + self.age - 1
@@ -133,8 +134,6 @@ class Node(object):
     def update_error_counter(self, input_node):
         self.long_term_error = math.exp(-1 / MODEL_CONSTANT.TL) * self.long_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TL)) * np.linalg.norm(input_node.target - input_node.actual_output)
         self.short_term_error = math.exp(-1 / MODEL_CONSTANT.TS) * self.short_term_error + (1 - math.exp(-1 / MODEL_CONSTANT.TS)) * np.linalg.norm(input_node.target - input_node.actual_output)
-        # print("self.long_term_error ", self.long_term_error)
-        # print("self.short_term_error", self.short_term_error)
 
     def decrease_age_for_winner(self):
         self.age = math.exp(-1 / MODEL_CONSTANT.TY) * self.age

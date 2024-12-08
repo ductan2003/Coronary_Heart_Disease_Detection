@@ -1,6 +1,10 @@
 import numpy as np
 import os
 import random
+import json
+import time
+
+TIME_CONSTANT = 100
 
 class Edge:
     def __init__(self, node, age = 1):
@@ -29,20 +33,11 @@ class Node:
                 return neighbor
         return
     
-    # def add_neighbor(self, neighbor):
-    #     edge = Edge(neighbor)
-    #     self.neighbors.append(edge)
-
-    #     neighbor.neighbors.append(Edge(self))
-
     def add_neighbor(self, neighbor):
         edge = Edge(neighbor)
         self.neighbors.append(edge)
-        
-        # Create a mirrored edge for the neighbor
-        mirrored_edge = Edge(self)
-        neighbor.neighbors.append(mirrored_edge)
-        
+
+        neighbor.neighbors.append(Edge(self))
 
     def display_neighbor(self):
         for neighbor in self.neighbors:
@@ -58,7 +53,9 @@ class Node:
         self.get_neighbors().remove(edge)
 
         neighbor = edge.get_node()
-        neighbor.get_neighbors().remove(edge)
+
+        neighbor_edge = neighbor.get_neighbor_by_node(self)
+        neighbor.get_neighbors().remove(neighbor_edge)
 
     def delete_neighbor_by_node(self, node):
         # Remove the neighbor from this node's list of neighbors
@@ -100,7 +97,18 @@ class Graph(object):
 
     def remove_node(self, node):
         self.graph.remove(node)
+        for neighbor in node.get_neighbors():
+            neighbor_node = neighbor.get_node()
+            for t in neighbor_node.get_neighbors():
+                if (t.get_node() == node):
+                    neighbor_node.get_neighbors().remove(t)
 
+    def get_edges_number(self):
+        count = 0
+        for node in self.graph:
+            count += node.get_neighbor_size()
+        return round(count / 2)
+    
     def find_best_and_second_best_node(self, input_node):
         # Initialize variables to store the best and second-best nodes and their distances
         best_node = None
@@ -129,8 +137,9 @@ class Graph(object):
         return best_node, second_best_node
 
 class GNG:
-    def __init__(self, dataset_path, max_nodes=1000, winner_lr=0.2, second_lr=0.05, max_edge = 100, theta = 10):
+    def __init__(self, dataset_path, dataset_name="DEFAULT", max_nodes=1000, winner_lr=0.1, second_lr=0.003, max_edge = 50, theta = 30):
         self.dataset_path = dataset_path
+        self.dataset_name = dataset_name
         self.max_nodes = max_nodes
         self.graph = Graph()
 
@@ -138,11 +147,14 @@ class GNG:
         self.second_lr = second_lr
         self.max_edge = max_edge
         self.step = 0
-        self.theta = 10
+        self.theta = theta
         self.alpha = 0.5
 
         self.train_error = 0
         self.success_samples = 0
+
+        self.log = []
+        self.count_insert = 0
 
     def fit(self, max_epoch):
         for i in range(max_epoch):
@@ -184,23 +196,29 @@ class GNG:
                 else:
                     first.add_neighbor(second)
 
+
                 first.errors = first.errors + first.get_input_distance(input_node)
 
                 first.update_input_weight(input_node, self.winner_lr)
                 for neighbor in first.get_neighbors():
                     neighbor.get_node().update_input_weight(input_node, self.second_lr)
 
-
                 if (self.step % self.theta == 0):
+                    self.count_insert += 1
                     max_error = 0
                     max_node = None
+                    count_edge = 0
                     for node in self.graph.graph:
+                        count_edge += len(node.neighbors)
+
                         if (max_error < node.errors):
                             max_error = max(max_error, node.errors)
                             max_node = node
                         for neighbor in node.get_neighbors():
                             if (neighbor.age > self.max_edge):
                                 node.delete_neighbor_by_edge(neighbor)
+                        if (node.get_neighbor_size() < 2 and len(self.graph.graph) > 2):
+                            self.graph.remove_node(node)
 
                     max_error = float('-inf')
                     second_node = None
@@ -209,22 +227,112 @@ class GNG:
                         if (max_error < neighbor_node.errors):
                             max_error = max(max_error, neighbor_node.errors)
                             second_node = neighbor_node
+                    if (second_node):
+                        new_node = Node(input_weight=(max_node.input_weight + second_node.input_weight) / 2, 
+                                        label=max_node.label,
+                                        errors=(max_node.errors + second_node.errors)/2)                    
+                        self.graph.add_node(new_node)
+                        new_node.add_neighbor(max_node)
+                        new_node.add_neighbor(second_node)
+                        max_node.delete_neighbor_by_node(second_node)
 
-                    new_node = Node(input_weight=(max_node.input_weight + second_node.input_weight) / 2, 
-                                    label=max_node.label,
-                                    errors=(max_node.errors + second_node.errors)/2)                    
-                    new_node.add_neighbor(max_node)
-                    new_node.add_neighbor(second_node)
-                    self.graph.add_node(new_node)
-                    max_node.delete_neighbor_by_node(second_node)
-                    max_node.errors = self.alpha * max_node.errors
-                    second_node.errors = self.alpha * second_node.errors
+                        max_node.errors = self.alpha * max_node.errors
+                        second_node.errors = self.alpha * second_node.errors
                 
+                if (self.step % TIME_CONSTANT == 0):
+                    self.log.append({
+                        "step": self.step,
+                        "success_rate": self.success_samples / self.step,
+                        "num_nodes": len(self.graph.graph),
+                        "num_edges": count_edge / 2
+                    })
+            print("Dataset name: ", self.dataset_name, " - Epoch ", i + 1, "out of ", max_epoch)
+        with open("./" + str(self.step) + ".json", 'w') as json_file:
+            json.dump(self.log, json_file)
+            self.log = []
 
-dataset_path = '../LLCS/Disease_dataset/Ex1_Overlap_3000/NumpyData/'
-model = GNG(dataset_path=dataset_path, max_nodes=100)
-model.fit(max_epoch=1)
+    def eval(self, eval_dataset):
+        print("Start Evaluate GNG")
+        count = 0
+        count_rn = 0
+        count_ra = 0
+        count_wn = 0
+        count_wa = 0
+        datasetPath = eval_dataset
+        count_true = {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0
+        }
 
-print(model.success_samples/model.step)
-print(len(model.graph.graph))
+        index = 0
+        for filename in os.listdir(datasetPath):
+            if (filename.endswith(".npy")):
+                index += 1
+                file_path = os.path.join(datasetPath, filename)
+                ecg_array = np.load(file_path)
 
+                parts = filename.split('_')
+                if len(parts) >= 3:
+                    timestamp, label, file_type = parts
+
+                label = int(label)
+                count_true[str(label)] += 1
+
+                input_node = Node(ecg_array, label=label)
+                first, second = self.graph.find_best_and_second_best_node(input_node)
+
+                if (first.label == label):
+                    count += 1
+                    if (label == 0):
+                        count_rn += 1
+                    elif (label == 1):
+                        count_ra += 1
+                    elif (label == 2):
+                        count_wn += 1
+                    elif (label == 3):
+                        count_wa += 1
+
+        # print("RN ", count_rn, " out of ", count_true["0"])
+        # print("RA ", count_ra, " out of ", count_true["1"])
+        # print("WN ", count_wn, " out of ", count_true["2"])
+        # print("WA ", count_wa, " out of ", count_true["1"])
+
+        accuracy = (count_rn + count_ra + count_wn + count_wa) / (count_true["0"] + count_true["1"] + count_true["2"] + count_true["3"]) * 100
+        print("Accuracy: ", round(accuracy, 2), "%")
+        tar = (count_ra + count_wa) / (count_true["1"] + count_true["3"]) * 100
+        print("True Acceptance Rate (TAR): ", round(tar, 2), "%")
+        far = (count_true["0"] - count_rn + count_true["2"] - count_wn) / (count_true["0"] + count_true["2"]) * 100
+        print("False Acceptance Rate (FAR): ", round(far, 2), "%")
+        print("Number of nodes: ", len(self.graph.graph))
+
+
+count_insert = 0
+dataset_path =  '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env1/NumpyData/'
+model = GNG(dataset_path=dataset_path, dataset_name="ENV1", max_nodes=1000)
+model.fit(max_epoch=5)
+
+# Change env
+model.dataset_name = "ENV2"
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env2/NumpyData/'
+model.fit(max_epoch=5)
+
+# Change env
+model.dataset_name = "ENV3"
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env3/NumpyData/'
+model.fit(max_epoch=7)
+
+# Change env
+model.dataset_name = "ENV4"
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env4/NumpyData/'
+model.fit(max_epoch=7)
+
+
+# Eval model 
+start_time = time.time()
+model.eval("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/")
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"Execution time for: {execution_time:.2f} seconds")
+print("Number of edges: ", model.graph.get_edges_number())

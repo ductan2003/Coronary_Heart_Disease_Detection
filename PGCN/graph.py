@@ -1,6 +1,5 @@
 import math
 import numpy as np
-from datetime import datetime
 
 from node import Node
 from constant import MODEL_CONSTANT
@@ -8,7 +7,6 @@ from constant import MODEL_CONSTANT
 class Graph(object):
     def __init__(self):
         self.log = {}
-        self.log["fail"] = 0
         self.capture_data = []
         self.graph = []
 
@@ -41,7 +39,6 @@ class Graph(object):
 
     def add_node(self, node):
         """Adds a new node to the graph."""
-        # node = Node(value)
         if node not in self.graph:
             self.graph.append(node)
 
@@ -52,7 +49,6 @@ class Graph(object):
             for t in neighbor_node.get_neighbors():
                 if (t.get_node() == node):
                     neighbor_node.get_neighbors().remove(t)
-
 
     def display(self):
         """Displays the graph."""
@@ -97,7 +93,6 @@ class Graph(object):
                 node.set_activate_value(math.exp(-input_node.get_input_distance(node) / (width_of_gaussian * width_of_gaussian)))
             else:
                 node.set_activate_value(0)
-            # print("___ACTIVATE DONE___: ", node.activate_value)
 
     def get_actual_output(self):
         activate_values = []
@@ -122,7 +117,6 @@ class Graph(object):
         if (q != None):
             f_edge = max(q.get_neighbors(), key=lambda k: k.get_node().quality_measure_for_insertion)
             f = f_edge.get_node()
-            # f.display()
             if (f):
                 r = Node(input_weight= (q.input_weight + f.input_weight) / 2, 
                         output_weight= (q.output_weight + f.output_weight) / 2, 
@@ -139,19 +133,15 @@ class Graph(object):
                         insert_success = False
                         item.insertion_threshold += MODEL_CONSTANT.INSERTION_LEARNING_RATE * (item.long_term_error - item.insertion_threshold * (1 - MODEL_CONSTANT.INSERTION_TOLERANCE))
                 if (insert_success):
-                    self.log["success"] = 1000
+                    self.log[step] = "insert success"
                     self.add_node(r)
                     q.delete_neighbor_by_node(f)
                     r.add_neighbor(q)
                     r.add_neighbor(f)
                 else:
-                    if self.log["fail"] != None:
-                        self.log["fail"] = self.log["fail"] + 1 
-                    else:
-                        self.log["fail"] = 0
+                    self.log[step] = "insert fail"
                     for item in [q, f, r]:
                         item.inherited_error = item.long_term_error
-                        # item.display()
 
     def get_average_similarity_input_weight(self):
         distance = 0
@@ -159,7 +149,6 @@ class Graph(object):
             distance += item.get_width_of_gaussian()
         return distance / len(self.graph)
     
-    #TODO
     def check_deletion_criteria(self):
         min =  float('inf')
         min_item = None
@@ -173,7 +162,6 @@ class Graph(object):
         if (not min_item):
             return
         if (MODEL_CONSTANT.DELETION_THRESHOLD > min and min_item.get_neighbor_size() >= 2 and min_item.age < MODEL_CONSTANT.MINIMAL_AGE and min_item.get_quality_measure_for_learning() < MODEL_CONSTANT.SUFFICIENT_STABILIZATION):
-            self.log["delete"] = "true"
             for neighbor in min_item.get_neighbors():
                 neighbor.get_node().delete_neighbor_by_node(min_item)
             self.remove_node(min_item)
@@ -181,7 +169,8 @@ class Graph(object):
 
     def update_node(self):
         for node in self.graph:
-            
-            if (node.get_neighbor_size() == 0):                    
+            if (node.age == 1):
+                node.last_activate += 1
+            if (node.get_neighbor_size() == 0 or node.last_activate >= MODEL_CONSTANT.MAXIMUM_NEW_NODE_AGE):                    
                 self.remove_node(node)
             node.update_edge()

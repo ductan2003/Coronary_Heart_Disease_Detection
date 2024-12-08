@@ -6,11 +6,10 @@ from datetime import datetime
 import random
 import matplotlib.pyplot as plt
 import networkx as nx
+from datetime import datetime
 import time
 
-
 from graph import Graph
-# from new_graph import Graph
 from node import Node
 from constant import MODEL_CONSTANT, DATASET
 
@@ -28,12 +27,13 @@ def softmax(array):
     return softmax_value.reshape(1, -1)
 
 class LLCS(object):
-    def __init__(self, dataset_log_path, dataset_name="DEFAULT"):
+    def __init__(self, dataset_name, dataset_log_path):
         self.graph = Graph()
         self.dataset_name = dataset_name
         self.step = 0
 
         self.total_mse = 0
+        self.first_step = 0
 
         self.true_detect = 0
 
@@ -67,20 +67,6 @@ class LLCS(object):
             json.dump(model_constants, json_file, indent=4)  # indent=4 for pretty-printing
 
     def export_graph(self):
-        # Visualize the graph with 2D layout
-        # plt.figure(figsize=(12, 8))
-        # # node_positions = nx.spring_layout(self.graph.new_graph, seed=42)  # Position nodes in 2D space using spring layout
-
-        # # Plot the nodes, edges, and labels
-        # nx.draw_networkx_nodes(self.graph.new_graph, self.graph.node_positions, node_size=500, node_color='skyblue', alpha=0.7)
-        # nx.draw_networkx_edges(self.graph.new_graph, self.graph.node_positions, width=1.0, alpha=0.5, edge_color='gray')
-        # nx.draw_networkx_labels(self.graph.new_graph, self.graph.node_positions, font_size=10, font_color='black')
-        # # nx.draw(self.graph.new_graph, pos=self.node_positions, with_labels=True, node_color='skyblue', edge_color='gray')
-
-        # # Set plot title and labels
-        # plt.title('Step ' + str(self.step))
-        # plt.axis('off')  # Turn off the axis for better visualization
-
         os.makedirs(self.dataset_log_path + "graph/", exist_ok=True)
         nx.write_graphml(G, self.dataset_log_path + "graph/" + str(self.step) + ".graphml")
 
@@ -89,8 +75,8 @@ class LLCS(object):
             "step": self.step,
             "num_nodes": self.graph.get_graph_size(),
             "num_edges": self.graph.get_graph_edge(),
-            "mse": self.total_mse / self.step,
-            "success_rate": self.true_detect / self.step
+            "mse": self.total_mse / (self.step - self.first_step),
+            "success_rate": self.true_detect / (self.step - self.first_step)
         }
         self.graph.capture_data.append(data)
 
@@ -101,11 +87,13 @@ class LLCS(object):
     def fit(self, max_epoch=1):
         self.export_parameter()
         dataset_path = DATASET[self.dataset_name]
-        # dataset_path = "./Disease_dataset/Raw/Dataset3_Official/NumpyData_3031/train/"
 
         t_ins = 0
         for i in range(max_epoch):
             print("Dataset name: ", self.dataset_name, " - EPOCH ", i + 1, " out of ", max_epoch)
+            self.total_mse = 0
+            self.first_step = self.step
+            self.true_detect = 0
             samples_list = []
             for filename in os.listdir(dataset_path):
                 if (filename.endswith(".npy")):
@@ -119,13 +107,12 @@ class LLCS(object):
 
                 parts = filename.split('_')
                 if len(parts) >= 3:
-                    timestamp, label, file_type = parts
+                    _, label, _ = parts
 
                 label = int(label)
                 
                 output = np.zeros((1, 4), dtype=int)
                 if 0 <= label < 4:
-                    # Set the specified index to 1
                     output[0, label] = 1
                 else:
                     print("Invalid index. Please provide a value between 0 and 5.")
@@ -151,8 +138,7 @@ class LLCS(object):
 
                 t_ins += 1
                 
-                if (t_ins == MODEL_CONSTANT.THETA * self.graph.get_graph_size()):
-                    self.graph.log[self.step] = "insert"
+                if (t_ins >= MODEL_CONSTANT.THETA * self.graph.get_graph_size()):
                     self.graph.update_BI()
                     self.graph.get_q_and_f_node(self.step)
                     t_ins = 0
@@ -162,10 +148,11 @@ class LLCS(object):
                 first.update_error_counter(input_node)
                 first.decrease_age_for_winner()
                 first.decrease_insertion_threshold_for_winner()
+                first.last_activate = 0
+                second.last_activate = 0
 
                 if (not first.is_neighbor(second)):
                     first.add_neighbor(second)
-
                 first.update_edge_for_winner(second)
 
                 if (self.graph.get_graph_size() > 2):
@@ -173,25 +160,24 @@ class LLCS(object):
 
                 if (self.step % MODEL_CONSTANT.CAPTURE_TIME == 0):
                     self.capture_model()
-                # if (self.step % 200) == 1:
-                #     self.export_graph()
             if (i == max_epoch - 1):
                 self.export_log()
 
     def evaluate(self):
-        print("Start Evaluate LLCS")
+        print("Start Evaluate PGCN")
         count = 0
         count_rn = 0
         count_ra = 0
         count_wn = 0
         count_wa = 0
-        datasetPath = "./Disease_dataset/Eval/NumpyData/"
+        datasetPath = "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/"
         count_true = {
             "0": 0,
             "1": 0,
             "2": 0,
             "3": 0
         }
+
 
         index = 0
         for filename in os.listdir(datasetPath):
@@ -236,6 +222,7 @@ class LLCS(object):
         # print("RA ", count_ra)
         # print("WN ", count_wn)
         # print("WA ", count_wa)
+        # print(count_true)
 
         accuracy = (count_rn + count_ra + count_wn + count_wa) / (count_true["0"] + count_true["1"] + count_true["2"] + count_true["3"]) * 100
         print("Accuracy: ", round(accuracy, 2), "%")
@@ -244,6 +231,7 @@ class LLCS(object):
         far = (count_true["0"] - count_rn + count_true["2"] - count_wn) / (count_true["0"] + count_true["2"]) * 100
         print("False Acceptance Rate (FAR): ", round(far, 2), "%")
         print("Number of nodes: ", len(self.graph.graph))
+
 
 
     def numpy_log(self):
