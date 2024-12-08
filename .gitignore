@@ -16,3 +16,7 @@ Dataset12
 *.npy
 *.txt
 *.zip
+*.json
+*.class
+.DS_Store
+*.ipynb

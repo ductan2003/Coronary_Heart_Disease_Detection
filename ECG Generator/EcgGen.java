@@ -67,8 +67,8 @@ public class EcgGen extends javax.swing.JFrame {
         String activityType = "Working-Overlap";
         Integer label = 3;
         Integer numSample = 1;
-        String destinationLogFolder = ".\\ECG Generator";
-        String destinationECGFolder = ".\\ECG Generator";
+        String destinationLogFolder = "./ECG Generator/Test1";
+        String destinationECGFolder = "./ECG Generator/Test1";
 
 
         Random random = new Random();
@@ -107,8 +107,8 @@ public class EcgGen extends javax.swing.JFrame {
                     desFilename = desFilename.replace(":", "_");  // Replace colons with underscores
 
 
-                    logger.exportTxtLog(destinationLogFolder + "\\" + desFilename + ".txt");
-                    dataExporter.exportCsvData(destinationECGFolder + "\\" + desFilename + ".csv");
+                    logger.exportTxtLog(destinationLogFolder + "/" + desFilename + ".txt");
+                    dataExporter.exportCsvData(destinationECGFolder + "/" + desFilename + ".csv");
                 }
             }
         }
