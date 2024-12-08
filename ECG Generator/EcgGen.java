@@ -64,11 +64,11 @@ public class EcgGen extends javax.swing.JFrame {
         EcgExportWindow dataExporter = EcgGen.getExportWindow(); 
         EcgCalc generator = EcgGen.getCalcOb();
         
-        String activityType = "Resting-Overlap";
-        Integer label = 0;
-        Integer numSample = 45;
-        String destinationLogFolder = "./ECG Generator/Dataset2/Log/";
-        String destinationECGFolder = "./ECG Generator/Dataset2/ECG/";
+        String activityType = "Working-Overlap";
+        Integer label = 3;
+        Integer numSample = 1;
+        String destinationLogFolder = ".\\ECG Generator";
+        String destinationECGFolder = ".\\ECG Generator";
 
 
         Random random = new Random();
@@ -84,7 +84,7 @@ public class EcgGen extends javax.swing.JFrame {
             timestamp = Instant.now();
 
             // Warning: use for overlap
-            label = random.nextInt(2);
+            label = random.nextInt(2) + 2;
 
             paramController.resetParameters();
             paramController.setRandomHrStd(activityType, random);
@@ -102,9 +102,13 @@ public class EcgGen extends javax.swing.JFrame {
         
                 if (genSuccess) {
                     String desFilename = timestamp.toString().replace("/", "") + "_" + Integer.toString(label) + "_" + activityType; // Specify the file path here
+                    // String desFilename = "a"; // Specify the file path here
 
-                    logger.exportTxtLog(destinationLogFolder + "/" + desFilename + ".txt");
-                    dataExporter.exportCsvData(destinationECGFolder + "/" + desFilename + ".csv");
+                    desFilename = desFilename.replace(":", "_");  // Replace colons with underscores
+
+
+                    logger.exportTxtLog(destinationLogFolder + "\\" + desFilename + ".txt");
+                    dataExporter.exportCsvData(destinationECGFolder + "\\" + desFilename + ".csv");
                 }
             }
         }
