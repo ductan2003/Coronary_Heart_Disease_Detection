@@ -170,7 +170,7 @@ class LLCS(object):
         count_ra = 0
         count_wn = 0
         count_wa = 0
-        datasetPath = "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/"
+        datasetPath = "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Eval/NumpyData/"
         count_true = {
             "0": 0,
             "1": 0,
@@ -247,9 +247,10 @@ class LLCS(object):
             index += 1
 
 
-log_name = "Env_Change"
+log_name = "DatasetA"
 dataset_log_path = "./Thesis_log/" + log_name + "/"
 
+# dataset_name = "DatasetA"
 dataset_name = "Env1"
 model = LLCS(dataset_name=dataset_name, dataset_log_path=dataset_log_path)
 model.fit(max_epoch = 5)

@@ -160,27 +160,27 @@ def load_data_from_directory(directory_path, seed=42):
     return np.array(data), np.array(labels)
 
 if __name__ == "__main__":    
-    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env1/NumpyData/")
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env1/NumpyData/")
     # Create and train the KSOM model
     som = KSOM(grid_size=10, dim=30*31, learning_rate=0.1, radius=1, max_iter=5, dataset_name="ENV1")
     som.train(data, labels)
 
-    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env2/NumpyData/")
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env2/NumpyData/")
     som.dataset_name = "ENV2"
     som.max_iter = 5
     som.train(data, labels)
 
     som.dataset_name = "ENV3"
     som.max_iter = 7
-    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env3/NumpyData/")
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env3/NumpyData/")
     som.train(data, labels)
 
     som.dataset_name = "ENV4"
     som.max_iter = 7
-    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env4/NumpyData/")
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env4/NumpyData/")
     som.train(data, labels)
     
-    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/")
+    data, labels = load_data_from_directory("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Eval/NumpyData/")
     count = 0
     count_rn = 0
     count_ra = 0

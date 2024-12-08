@@ -26,20 +26,12 @@ class MODEL_CONSTANT:
     CAPTURE_TIME = 100
 
 DATASET = {
-    "Overlap_testing": "./Disease_dataset/Overlap_testing/NumpyData/train/",
-    "Overlap_testing_5000": "./Disease_dataset/Overlap_testing_5000/NumpyData/",
-    "NonOverlap_testing": "./Disease_dataset/NonOverlap_testing/NumpyData/train/",
-    "Ex1_NonOverlap_3000": "./Disease_dataset/Ex1_NonOverlap_3000/NumpyData/",
-    "Ex1_Overlap_3000": "./Disease_dataset/Ex1_Overlap_3000/NumpyData/",
-    "Ex2_Dataset3_2000": "./Disease_dataset/Ex2_Dataset3_2000/NumpyData/",
-    "Ex2_Dataset4_1050": "./Disease_dataset/Ex2_Dataset4_1050/NumpyData/",
-    "Ex2_Dataset5_450": "./Disease_dataset/Ex2_Dataset5_450/NumpyData/",
-    "DatasetA": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/OfficialDatasetA/NumpyData/train/",
-    "DatasetB": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/OfficialDatasetB/NumpyData/train/",
-    "Env1": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env1/NumpyData/",
-    "Env2": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env2/NumpyData/",
-    "Env3": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env3/NumpyData/",
-    "Env4": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env4/NumpyData/",
-    "RandomDataset": "/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/RandomDataset/NumpyData/",
+    "DatasetA": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/OfficialDatasetA/NumpyData/train",
+    "DatasetB": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/OfficialDatasetB/NumpyData/train",
+    "Env1": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env1/NumpyData/",
+    "Env2": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env2/NumpyData/",
+    "Env3": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env3/NumpyData/",
+    "Env4": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env4/NumpyData/",
+    "RandomDataset": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/RandomDataset/NumpyData/",
 }
     

@@ -309,29 +309,29 @@ class GNG:
 
 
 count_insert = 0
-dataset_path =  '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env1/NumpyData/'
+dataset_path =  '/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env1/NumpyData/'
 model = GNG(dataset_path=dataset_path, dataset_name="ENV1", max_nodes=1000)
 model.fit(max_epoch=5)
 
 # Change env
 model.dataset_name = "ENV2"
-model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env2/NumpyData/'
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env2/NumpyData/'
 model.fit(max_epoch=5)
 
 # Change env
 model.dataset_name = "ENV3"
-model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env3/NumpyData/'
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env3/NumpyData/'
 model.fit(max_epoch=7)
 
 # Change env
 model.dataset_name = "ENV4"
-model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Env4/NumpyData/'
+model.dataset_path = '/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Env4/NumpyData/'
 model.fit(max_epoch=7)
 
 
 # Eval model 
 start_time = time.time()
-model.eval("/Users/tannguyen/Coronary_Heart_Disease_Detection/LLCS/Disease_dataset/Eval/NumpyData/")
+model.eval("/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Eval/NumpyData/")
 end_time = time.time()
 execution_time = end_time - start_time
 print(f"Execution time for: {execution_time:.2f} seconds")

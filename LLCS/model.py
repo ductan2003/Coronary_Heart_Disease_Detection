@@ -185,7 +185,7 @@ class LLCS(object):
         count_ra = 0
         count_wn = 0
         count_wa = 0
-        datasetPath = "./Disease_dataset/Eval/NumpyData/"
+        datasetPath = "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/Eval/NumpyData"
         count_true = {
             "0": 0,
             "1": 0,
