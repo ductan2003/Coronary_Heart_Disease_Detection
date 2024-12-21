@@ -17,6 +17,7 @@ Dataset12
 *.txt
 *.zip
 *.json
+*.png
 *.class
 .DS_Store
 *.ipynb
