@@ -1,7 +1,7 @@
 class MODEL_CONSTANT:
     DELETION_THRESHOLD = 0.02
     MINIMAL_AGE = 0.01
-    SUFFICIENT_STABILIZATION= 0.01
+    SUFFICIENT_STABILIZATION = 0.01
 
     INPUT_ADAPTATION_THRESHOLD = 0.02
     LEARNING_RATE_FOR_BEST_NODE = 0.1
@@ -17,11 +17,12 @@ class MODEL_CONSTANT:
     TV = 100
 
     MAXIMUM_EDGE_AGE = 50
-    MAXIMUM_NEW_NODE_AGE = 150
+    MAXIMUM_NEW_NODE_AGE = 300
 
     THETA = 5
 
     CAPTURE_TIME = 100
+
 
 DATASET = {
     "DatasetA": "/Users/tannguyen/Coronary_Heart_Disease_Detection/Data/Disease_dataset/OfficialDatasetA/NumpyData/train/",

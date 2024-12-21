@@ -1,5 +1,5 @@
 class Edge:
-    def __init__(self, node, age = 1, weight=1):
+    def __init__(self, node, age=1, weight=1):
         self.node = node
         self.weight = weight
         self.age = age
